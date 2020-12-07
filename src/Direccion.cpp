@@ -21,13 +21,13 @@ Direccion::Direccion(PuntoCardinal pc) {
 Coord Direccion::proximaDir(const Coord &coord) {
     switch (_ord) {
         case 0: // Norte
-            return Coord(coord.x(), coord.y() + 1); // O(1)
+            return Coord(coord.x(), coord.y() + 1);
         case 1: // Este
-            return Coord(coord.x() + 1, coord.y()); // O(1)
+            return Coord(coord.x() + 1, coord.y());
         case 2: // Sur
-            return Coord(coord.x(), coord.y() - 1); // O(1)
+            return Coord(coord.x(), coord.y() - 1);
         case 3: // Oeste
-            return Coord(coord.x() - 1, coord.y()); // O(1)
+            return Coord(coord.x() - 1, coord.y());
     }
 
     // nunca pasa
