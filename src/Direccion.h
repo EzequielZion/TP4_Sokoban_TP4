@@ -10,18 +10,17 @@
 class Direccion {
 public:
 
-    Direccion(Nat orden);
-
     Direccion(PuntoCardinal pc);
 
     Direccion& operator=(const Direccion &dir);
 
     int ord();
 
+    Coord proximaDir(const Coord &coord);
 
 
 private:
-    Nat _orden;
+    Nat _ord;
 
 };
 

@@ -3,3 +3,7 @@
 //
 
 #include "Sokoban.h"
+#include "Direccion.h"
+#include "Coord.h"
+
+
