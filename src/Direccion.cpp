@@ -6,13 +6,13 @@
 #include "Coord.h"
 
 Direccion::Direccion(PuntoCardinal pc) {
-    if (pc = Norte) {
+    if (pc == Norte) {
         _ord = 0;
-    } else if (pc = Este) {
+    } else if (pc == Este) {
         _ord = 1;
-    } else if (pc = Sur) {
+    } else if (pc == Sur) {
         _ord = 2;
-    } else if (pc = Oeste) {
+    } else if (pc == Oeste) {
         _ord = 3;
     }
 
