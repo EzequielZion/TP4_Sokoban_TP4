@@ -14,7 +14,7 @@ public:
 
     Direccion& operator=(const Direccion &dir);
 
-    int ord();
+    int ord() const;
 
     Coord proximaDir(const Coord &coord);
 
