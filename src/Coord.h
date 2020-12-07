@@ -18,7 +18,7 @@ public:
 
     int y() const;
 
-    bool operator=(const Coord &coord);
+    Coord& operator=(const Coord &coord);
 
     bool operator!=(const Coord &coord);
 

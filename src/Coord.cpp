@@ -24,8 +24,8 @@ bool Coord::operator==(const Coord &coord) {
     return this->_coord.first == coord.x() && this->_coord.second == coord.y();
 }
 
-bool Coord::operator=(const Coord &coord) {
+Coord& Coord::operator=(const Coord &coord) {
     this->_coord.first = coord.x();
     this->_coord.second = coord.y();
-    return this;
+    return *this;
 }

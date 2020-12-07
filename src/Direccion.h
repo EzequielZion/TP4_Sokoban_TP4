@@ -4,9 +4,16 @@
 
 #ifndef TP4_SOKOBAN_DIRECCION_H
 #define TP4_SOKOBAN_DIRECCION_H
-
+#include "Tipos.h"
 
 class Direccion {
+public:
+
+    Direccion(PuntoCardinal pc);
+
+    Direccion operator=(const Direccion &dir);
+
+
 
 };
 
