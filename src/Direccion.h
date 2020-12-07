@@ -5,11 +5,12 @@
 #ifndef TP4_SOKOBAN_DIRECCION_H
 #define TP4_SOKOBAN_DIRECCION_H
 #include "Tipos.h"
+#include "Coord.h"
 
 class Direccion {
 public:
 
-    Direccion()
+    Direccion(Nat orden);
 
     Direccion(PuntoCardinal pc);
 
@@ -17,8 +18,10 @@ public:
 
     int ord();
 
+
+
 private:
-    Nat orden;
+    Nat _orden;
 
 };
 
