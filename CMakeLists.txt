@@ -34,7 +34,7 @@ if (WITH_GUI)
 	target_link_libraries(sokobanGUI ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
 endif (WITH_GUI)
 
-add_executable(correrTestsJuego ${SOURCE_FILES} tests/juego-tests.cpp src/Direccion.cpp src/Direccion.h src/Coordenada.cpp src/Coordenada.h src/Mapa.cpp src/Mapa.h src/Nivel.cpp src/Nivel.h src/Sokoban.cpp src/Sokoban.h)
+add_executable(correrTestsJuego ${SOURCE_FILES} tests/juego-tests.cpp src/Direccion.cpp src/Direccion.h src/Mapa.cpp src/Mapa.h src/Nivel.cpp src/Nivel.h src/Sokoban.cpp src/Sokoban.h src/Coord.cpp src/Coord.h)
 
 # Necesitamos asociar los archivos del framework de testing
 target_link_libraries(correrTestsJuego gtest gtest_main)
