@@ -9,12 +9,16 @@ Direccion::Direccion(PuntoCardinal pc) {
     switch(pc) {
         case Norte:
             _ord = 0;
+            break;
         case Este:
             _ord = 1;
+            break;
         case Sur:
             _ord = 2;
+            break;
         case Oeste:
             _ord = 3;
+            break;
     }
 }
 
