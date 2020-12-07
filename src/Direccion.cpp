@@ -18,6 +18,22 @@ Direccion::Direccion(PuntoCardinal pc) {
     }
 }
 
+Coord Direccion::proximaDir(const Coord &coord) const {
+    switch (_ord) {
+        case 0: // Norte
+            return Coord(coord.x(), coord.y() + 1); // O(1)
+        case 1: // Este
+            return Coord(coord.x() + 1, coord.y()); // O(1)
+        case 2: // Sur
+            return Coord(coord.x(), coord.y() - 1); // O(1)
+        case 3: // Oeste
+            return Coord(coord.x() - 1, coord.y()); // O(1)
+    }
+
+    // nunca pasa
+    return Coord(0, 0);
+}
+
 int Direccion::ord() {
     return this->_ord;
 }
