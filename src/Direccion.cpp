@@ -6,15 +6,25 @@
 #include "Coord.h"
 
 Direccion::Direccion(PuntoCardinal pc) {
-    if (pc == Norte) {
-        _ord = 0;
-    } else if (pc == Este) {
-        _ord = 1;
-    } else if (pc == Sur) {
-        _ord = 2;
-    } else if (pc == Oeste) {
-        _ord = 3;
+    switch(pc) {
+        case Norte:
+            _ord = 0;
+        case Este:
+            _ord = 1;
+        case Sur:
+            _ord = 2;
+        case Oeste:
+            _ord = 3;
     }
-
 }
+
+int Direccion::ord() {
+    return this->_ord;
+}
+
+Direccion& Direccion::operator=(const Direccion &dir) {
+    this->_ord = dir._ord;
+}
+
+
 
