@@ -29,9 +29,6 @@ Coord Direccion::proximaDir(const Coord &coord) {
         case 3: // Oeste
             return Coord(coord.x() - 1, coord.y());
     }
-
-    // nunca pasa
-    return Coord(0, 0);
 }
 
 int Direccion::ord() const {
