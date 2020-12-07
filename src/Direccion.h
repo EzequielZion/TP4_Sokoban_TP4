@@ -9,11 +9,16 @@
 class Direccion {
 public:
 
+    Direccion()
+
     Direccion(PuntoCardinal pc);
 
-    Direccion operator=(const Direccion &dir);
+    Direccion& operator=(const Direccion &dir);
 
+    int ord();
 
+private:
+    Nat orden;
 
 };
 
