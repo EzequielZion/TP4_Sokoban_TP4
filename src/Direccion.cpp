@@ -18,7 +18,7 @@ Direccion::Direccion(PuntoCardinal pc) {
     }
 }
 
-Coord Direccion::proximaDir(const Coord &coord) {
+Coord Direccion::proximaCoord(const Coord &coord) {
     switch (_ord) {
         case 0: // Norte
             return Coord(coord.x(), coord.y() + 1);

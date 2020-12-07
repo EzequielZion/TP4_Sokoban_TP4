@@ -16,7 +16,7 @@ public:
 
     int ord() const;
 
-    Coord proximaDir(const Coord &coord);
+    Coord proximaCoord(const Coord &coord);
 
 
 private:
