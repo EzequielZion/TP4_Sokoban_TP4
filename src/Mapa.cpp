@@ -31,4 +31,6 @@ set<Coord> Mapa::Paredes() const {
 
 }
 
-set<Coord>
+set<Coord> Mapa::bombasTiradas() const {
+
+}
