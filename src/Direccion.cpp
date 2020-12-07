@@ -34,7 +34,7 @@ Coord Direccion::proximaDir(const Coord &coord) {
     return Coord(0, 0);
 }
 
-int Direccion::ord() {
+int Direccion::ord() const {
     return this->_ord;
 }
 
