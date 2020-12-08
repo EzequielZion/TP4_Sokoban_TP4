@@ -11,15 +11,15 @@ public:
     Sokoban(Nivel n);
     void deshacer();
     void mover(Direccion dir);
-    Mapa mapa();
-    Nat bombas();
-    Coord persona();
-    bool hayCaja(Coord c);
-    bool noHayParedNiCaja(Coord c);
-    bool hayCajas(set<Coord> cajas);
+    Mapa mapa() const;
+    Nat bombas() const;
+    Coord persona() const;
+    bool hayCaja(Coord c) const;
+    bool noHayParedNiCaja(Coord c) const;
+    bool hayCajas(set<Coord> cajas) const;
     void tirarBomba(Coord c);
-    bool puedeMover(Direccion dir);
-    bool gano();
+    bool puedeMover(Direccion dir) const;
+    bool gano() const;
 
 private:
     set<Coord> _cajas;
