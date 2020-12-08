@@ -100,10 +100,10 @@ void Sokoban::mover(Direccion dir) {
                     itCaja = &c;
                 }
             }
-            this->_accion.push(make_tuple(make_tuple(true, Coord(proxCord), itCaja), make_tuple(false), make_tuple(true, proxCord));
+            this->_accion.push(make_tuple(make_tuple(true, Coord(proxCord), itCaja), make_tuple(false), make_tuple(true, proxCord)));
         } else {
             this->_persona = proxCord;
-            this->_accion.push(make_tuple(make_tuple(false, Coord(0,0), Coord(0,0)), make_tuple(false), make_tuple(true, proxCord));
+            this->_accion.push(make_tuple(make_tuple(false, Coord(0,0), nullptr), make_tuple(false), make_tuple(true, proxCord)));
         }
     }
 }
@@ -126,7 +126,7 @@ void Sokoban::tirarBomba(Coord c) {
     if(this->_bombas > 0) {
         this->_mapa.tirarBomba(c);
         this->_bombas--;
-        this->_accion.push(make_tuple(make_tuple(false, Coord(0, 0), Coord(0,0)), make_tuple(true), make_tuple(false, this->_persona));
+        this->_accion.push(make_tuple(make_tuple(false, Coord(0, 0), nullptr), make_tuple(true), make_tuple(false, this->_persona)));
     }
 }
 
