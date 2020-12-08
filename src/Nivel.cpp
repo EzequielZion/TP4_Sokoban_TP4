@@ -6,16 +6,20 @@ Nivel::Nivel(Mapa m, Coord p, set<Coord> cs, Nat b) : _mapa(m), _cajas(cs), _per
 Nivel::Nivel(const aed2_Nivel &n) {
     _mapa = Mapa();
     for (Coordenada c : n.paredes) {
-        _mapa.agPared(Coord(c.first, c.second));
+        Coord p = Coord(c.first, c.second);
+        _mapa.agPared(p);
     }
     for(Coordenada c : n.depositos){
-        _mapa.agDeposito(Coord(c.first, c.second));
+        Coord d = Coord(c.first, c.second);
+        _mapa.agDeposito(d);
     }
     _cajas = set<Coord>();
     for (Coordenada caja : n.cajas) {
-        _cajas.insert(Coord(caja.first, caja.second));
+        Coord caj = Coord(caja.first, caja.second);
+        _cajas.insert(caj);
     }
-    _persona = Coord(n.posicionInicial.first, n.posicionInicial.second);
+    Coord pers = Coord(n.posicionInicial.first, n.posicionInicial.second);
+    _persona = pers;
     _bombas = n.cantidadBombas;
 }
 
