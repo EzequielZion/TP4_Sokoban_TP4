@@ -1,10 +1,10 @@
 #ifndef TP4_SOKOBAN_SOKOBAN_H
 #define TP4_SOKOBAN_SOKOBAN_H
-#include "Mapa.h"
+#include"Mapa.h"
 #include "Coord.h"
 #include "Nivel.h"
 #include "Direccion.h"
-
+#include "stack"
 
 class Sokoban {
 public:
@@ -15,7 +15,11 @@ public:
     Nat bombas();
     Coord persona();
     bool hayCaja(Coord c);
-    bool hayDeposito(Coord c);
+    bool noHayParedNiCaja(Coord c);
+    bool hayCajas(set<Coord> cajas);
+    void tirarBomba(Coord c);
+    bool puedeMover(Direccion dir);
+    bool gano();
 
 private:
     set<Coord> _cajas;
@@ -23,7 +27,7 @@ private:
     Nat _bombas;
     Coord _persona;
     Nat _depositosSinCaja;
-    //Pila _historial; o lo que sea que implementemos para esto
+    stack<tuple<tuple<bool, Coord, Coord*>, tuple<bool>, tuple<bool, Coord>>> _accion;
 };
 
 //Hay cosas que puse copiando directamente

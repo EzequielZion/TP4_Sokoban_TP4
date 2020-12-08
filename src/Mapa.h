@@ -25,12 +25,12 @@ public:
 
     void tirarBomba(Coord c);
 
-    set<Coord> bombasTiradas() const;
+    list<Coord> bombasTiradas() const;
 
 private:
     vector<pair<int,  vector<int>>> _paredes;
     vector<pair<int,  vector<int>>> _depositos;
-    set<Coord> _bombasTiradas;
+    list<Coord> _bombasTiradas;
 };
 
 using namespace std;

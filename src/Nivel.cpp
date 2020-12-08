@@ -11,8 +11,11 @@ Nivel::Nivel(aed2_Nivel n) {
         m.agDeposito(c);
     }
     this->_mapa = m;
+    for (Coordenada caja : n.cajas) {
+        this->_cajas.insert(Coord(caja));
+    }
     this->_persona = n.posicionInicial;
-    this->_cajas = n.cajas; //Para que funcione hay que cambiar Nivel.h o el struct aed2_Nivel en Tipos.h
+
     this->_bombas = n.cantidadBombas;
 }
 
