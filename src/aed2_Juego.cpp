@@ -1,7 +1,9 @@
 #include "aed2_Juego.h"
 
-aed2_Juego::aed2_Juego(vector<aed2_Nivel> ns) : _nivelesPendientes(ns), _sokoActual(Nivel(ns[0])) {
-    _nivelesPendientes.erase(ns.begin());
+aed2_Juego::aed2_Juego(vector<aed2_Nivel> ns) : _nivelesPendientes(), _sokoActual(Nivel(ns[0])) {
+    for (int i = 1; i < ns.size(); ++i) {
+        _nivelesPendientes.push_back(ns[i]);
+    }
 }
 
 bool aed2_Juego::hayPared(Coordenada c) const {
