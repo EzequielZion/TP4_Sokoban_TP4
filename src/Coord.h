@@ -20,13 +20,13 @@ public:
 
     Coord& operator=(const Coord &coord);
 
-    bool operator<(const Coord &coord);
+    bool operator<(const Coord &coord) const;
 
-    bool operator>(const Coord &coord);
+    bool operator>(const Coord &coord) const;
 
-    bool operator!=(const Coord &coord);
+    bool operator!=(const Coord &coord) const;
 
-    bool operator==(const Coord &coord);
+    bool operator==(const Coord &coord) const;
 
 private:
     Coordenada _coord;

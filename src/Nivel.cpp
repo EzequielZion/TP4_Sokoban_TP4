@@ -3,15 +3,15 @@
 Nivel::Nivel(Mapa m, Coord p, set<Coord> cs, Nat b) : _mapa(m), _cajas(cs), _persona(p), _bombas(b) {}
 
 Nivel::Nivel(aed2_Nivel n) {
-    Mapa m;
-    for (Coordenada c : n.paredes) {
+    Mapa m = Mapa();
+    for (Coord c : n.paredes) {
         m.agPared(c);
     }
-    for(Coordenada c : n.depositos){
+    for(Coord c : n.depositos){
         m.agDeposito(c);
     }
     this->_mapa = m;
-    for (Coordenada caja : n.cajas) {
+    for (Coord caja : n.cajas) {
         this->_cajas.insert(Coord(caja));
     }
     this->_persona = n.posicionInicial;

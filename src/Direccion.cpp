@@ -23,16 +23,16 @@ Direccion::Direccion(PuntoCardinal pc) {
 }
 
 Coord Direccion::proximaCoord(const Coord &coord) {
-    Coord c;
+    Coord c = Coord(coord);
     switch (_ord) {
         case 0: // Norte
-            c = Coord(coord.x(), coord.y() + 1);
+            c = Coord(c.x(), c.y() + 1);
         case 1: // Este
-            c = Coord(coord.x() + 1, coord.y());
+            c = Coord(c.x() + 1, c.y());
         case 2: // Sur
-            c = Coord(coord.x(), coord.y() - 1);
+            c = Coord(c.x(), c.y() - 1);
         case 3: // Oeste
-            c = Coord(coord.x() - 1, coord.y());
+            c = Coord(c.x() - 1, c.y());
     }
     return c;
 }
