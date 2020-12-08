@@ -12,7 +12,7 @@ public:
 
     Coord(int X, int Y);
 
-    Coord(Coordenada coord);
+    Coord(const Coordenada coord);
 
     int x() const;
 

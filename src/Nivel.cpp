@@ -1,22 +1,22 @@
 #include "Nivel.h"
+#include "Coord.h"
 
 Nivel::Nivel(Mapa m, Coord p, set<Coord> cs, Nat b) : _mapa(m), _cajas(cs), _persona(p), _bombas(b) {}
 
 Nivel::Nivel(const aed2_Nivel &n) {
-    Mapa m = Mapa();
+    _mapa = Mapa();
     for (Coordenada c : n.paredes) {
-        m.agPared(Coord(c));
+        _mapa.agPared(Coord(c.first, c.second));
     }
     for(Coordenada c : n.depositos){
-        m.agDeposito(Coord(c));
+        _mapa.agDeposito(Coord(c.first, c.second));
     }
-    this->_mapa = m;
+    _cajas = set<Coord>();
     for (Coordenada caja : n.cajas) {
-        this->_cajas.insert(Coord(caja));
+        _cajas.insert(Coord(caja.first, caja.second));
     }
-    this->_persona = Coord(n.posicionInicial);
-
-    this->_bombas = n.cantidadBombas;
+    _persona = Coord(n.posicionInicial.first, n.posicionInicial.second);
+    _bombas = n.cantidadBombas;
 }
 
 Mapa Nivel::MapaN() const{
