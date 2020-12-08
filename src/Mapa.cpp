@@ -43,7 +43,7 @@ bool busquedaBinariaY(vector<int> vec, int l, int r, Coord &c) {
 }
 
 
-Mapa::Mapa() : _paredes(), _depositos() { }
+Mapa::Mapa() : _paredes(), _depositos(), _bombasTiradas() { }
 
 Mapa &Mapa::operator=(const Mapa &mapa) {
     for (auto elem : mapa.Depositos()) {
@@ -136,12 +136,21 @@ bool Mapa::hayPared(Coord c) const {
     int l = 0;
     int r = this->_paredes.size()-1;
     bool res = false;
-    int indiceX = busquedaBinariaX(this->_paredes, l, r, c);
 
-    if (indiceX != -1) {
-        int indiceY = busquedaBinariaY(this->_paredes[indiceX].second, l, r, c);
-        if (indiceY != -1) {
-            res = true;
+    bool coincideBomba = false;
+    for (Coord b : this->_bombasTiradas) {
+        if (b.x() == c.x() || b.y() == c.y()) {
+            coincideBomba = true;
+        }
+    }
+
+    if (!coincideBomba) {
+        int indiceX = busquedaBinariaX(this->_paredes, l, r, c);
+        if (indiceX != -1) {
+            int indiceY = busquedaBinariaY(this->_paredes[indiceX].second, l, r, c);
+            if (indiceY != -1) {
+                res = true;
+            }
         }
     }
     return res;
@@ -156,7 +165,9 @@ bool Mapa::hayDeposito(Coord c) const {
     if (indiceX != -1) {
         int indiceY = busquedaBinariaY(this->_depositos[indiceX].second, l, r, c);
         if (indiceY != -1) {
-            res = true;
+            for (Coord b : this->_bombasTiradas) {
+
+            }
         }
     }
     return res;
@@ -184,10 +195,14 @@ set<Coord> Mapa::Paredes() const {
     return pareds;
 }
 
-set<Coord> Mapa::bombasTiradas() const {
-    return this->bombasTiradas();
+list<Coord> Mapa::bombasTiradas() const {
+    list<Coord> res;
+    for (Coord c : this->_bombasTiradas) {
+        res.push_back(c);
+    }
+    return res;
 }
 
 void Mapa::tirarBomba(Coord c) {
-    this->_bombasTiradas.insert(c);
+    this->_bombasTiradas.push_back(c);
 }
