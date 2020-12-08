@@ -11,13 +11,13 @@ public:
 
     Mapa& operator=(const Mapa& aCopiar);
 
-    bool AgPared(Coord p);
+    bool agPared(Coord p);
 
-    bool AgDeposito(Coord d);
+    bool agDeposito(Coord d);
 
-    bool HayPared(Coord c) const;
+    bool hayPared(Coord c) const;
 
-    bool HayDeposito(Coord c) const;
+    bool hayDeposito(Coord c) const;
 
     set<Coord> Depositos() const;
 
