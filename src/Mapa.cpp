@@ -1,4 +1,4 @@
-#include "Mapa.h"
+    #include "Mapa.h"
 
 void swap(vector<int> &vec, int i, int j) {
     int aux = i;
@@ -62,12 +62,26 @@ bool Mapa::HayDeposito(Coord c) const {
 }
 
 set<Coord> Mapa::Depositos() const {
-
+    for (int i = 0; i < this->_depositos.size(); i++) {
+        for (int j = 0; j < this->_depositos[i].second.size(); j++) {
+            pair<int, int> depositoActual = make_pair(this->_depositos[i].first, this->_depositos[i].second[j]);
+            Paredes().insert(depositoActual);
+        }
+    }
 }
 
 set<Coord> Mapa::Paredes() const {
+    for (int i = 0; i < this->_paredes.size(); i++) {
+        for (int j = 0; j < this->_paredes[i].second.size(); j++) {
+            pair<int, int> paredActual = make_pair(this->_paredes[i].first, this->_paredes[i].second[j]);
+            Paredes().insert(paredActual);
+        }
+
+    }
 
 }
+
+
 
 set<Coord> Mapa::bombasTiradas() const {
 
