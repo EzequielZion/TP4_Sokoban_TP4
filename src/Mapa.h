@@ -23,7 +23,7 @@ public:
 
     set<Coord> Paredes() const;
 
-    bool
+    void tirarBomba(Coord c);
 
     set<Coord> bombasTiradas() const;
 
