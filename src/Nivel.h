@@ -9,7 +9,7 @@ public:
 
     Nivel& operator=(const Nivel &n);
 
-    Nivel(const aed2_Nivel &n);
+    Nivel(aed2_Nivel n);
 
     Mapa MapaN() const;
 
