@@ -189,5 +189,5 @@ set<Coord> Mapa::bombasTiradas() const {
 }
 
 void Mapa::tirarBomba(Coord c) {
-
+    this->_bombasTiradas.insert(c);
 }
