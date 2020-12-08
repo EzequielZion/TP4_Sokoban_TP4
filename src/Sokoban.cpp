@@ -139,5 +139,18 @@ bool Sokoban::gano() {
 }
 
 bool Sokoban::hayCajas(set<Coord> cajas) {
-
+    bool res = true;
+    bool esta;
+    for (Coord cajaAChequear : cajas) {
+        esta = false;
+        for (Coord cajaEstr : this->_cajas) {
+            if (cajaAChequear == cajaEstr) {
+                esta = true;
+            }
+            if (!esta) {
+                res = false;
+            }
+        }
+    }
+    return res;
 }
