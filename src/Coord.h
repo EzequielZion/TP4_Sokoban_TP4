@@ -14,6 +14,8 @@ public:
 
     Coord(const Coordenada coord);
 
+    Coord(const Coord &coord);
+
     int x() const;
 
     int y() const;

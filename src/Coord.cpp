@@ -3,7 +3,9 @@
 
 Coord::Coord(int X, int Y) : _coord(make_pair(X,Y)) {}
 
-Coord::Coord(const Coordenada coord) : _coord(coord) {}
+Coord::Coord(const Coordenada coord) : _coord(coord.first, coord.second) {}
+
+Coord::Coord(const Coord &coord) : _coord(coord.x(), coord.y()) {}
 
 int Coord::x() const {
     return this->_coord.first;
