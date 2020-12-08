@@ -12,7 +12,9 @@ public:
 
     Coord(int X, int Y);
 
-    Coord(Coordenada coord);
+    Coord(const Coordenada coord);
+
+    Coord(const Coord &coord);
 
     int x() const;
 
@@ -20,13 +22,13 @@ public:
 
     Coord& operator=(const Coord &coord);
 
-    bool operator<(const Coord &coord);
+    bool operator<(const Coord &coord) const;
 
-    bool operator>(const Coord &coord);
+    bool operator>(const Coord &coord) const;
 
-    bool operator!=(const Coord &coord);
+    bool operator!=(const Coord &coord) const;
 
-    bool operator==(const Coord &coord);
+    bool operator==(const Coord &coord) const;
 
 private:
     Coordenada _coord;
