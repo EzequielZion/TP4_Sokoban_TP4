@@ -35,10 +35,10 @@ protected:
         // -D---
         // PC-P-
         // --I--
-        // -P-CD
-        // ---CD
-        n2 = {posiciones123, posiciones0456, posiciones5789, pos0, 0};
-    }
+                         // -P-CD
+                         // ---CD
+                         n2 = {posiciones123, posiciones0456, posiciones5789, pos0, 0};
+}
 };
 
 TEST_F(JuegoTest, empezar_juego) {
