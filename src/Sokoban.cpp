@@ -2,7 +2,7 @@
 #include "Direccion.h"
 #include "Coord.h"
 
-Sokoban::Sokoban(Nivel n) : _mapa(n.MapaN()), _bombas(n.BombasN()),
+Sokoban::Sokoban(const Nivel &n) : _mapa(n.MapaN()), _bombas(n.BombasN()),
                             _cajas(n.CajasN()), _persona(n.PersonaN()),
                             _accion()
                             {

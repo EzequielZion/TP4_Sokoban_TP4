@@ -47,39 +47,45 @@ Mapa::Mapa() : _paredes(), _depositos(), _bombasTiradas() { }
 
 bool Mapa::agPared(Coord p) {
     bool res = false;
-    for (int i = 0; i < this->_paredes.size(); i++) {
+    if (this->_paredes.empty()) {
+        vector<int> vecY;
+        vecY.push_back(p.y());
+        this->_paredes.push_back(make_pair(p.x(), vecY));
+        res = true;
+    } else {
+        for (int i = 0; i < this->_paredes.size(); i++) {
 
-        if (p.x() == this->_paredes[i].first) { //Ya hay paredes con esa X
+            if (p.x() == this->_paredes[i].first) { //Ya hay paredes con esa X
 
-            bool esta = false;
-            for (int j = 0; j < this->_paredes[i].second.size(); ++j) { //Me fijo si está esa pared ya en el mapa
-                if (this->_paredes[i].second[j] == p.y()) {
-                    esta = true;
+                bool esta = false;
+                for (int j = 0; j < this->_paredes[i].second.size(); ++j) { //Me fijo si está esa pared ya en el mapa
+                    if (this->_paredes[i].second[j] == p.y()) {
+                        esta = true;
+                    }
                 }
-            }
-            if (!esta) { //Si no está, la agrego al final y la ordeno
+                if (!esta) { //Si no está, la agrego al final y la ordeno
+                    res = true;
+                    this->_paredes[i].second.push_back(p.y());
+                    int j = this->_paredes[i].second.size() - 1;
+                    while (j > 0 && this->_paredes[i].second[j] < this->_paredes[i].second[j - 1]) {
+                        swap(this->_paredes[i].second, j, j - 1);
+                        j--;
+                    }
+                }
+            } else if (p.x() > this->_paredes[i].first) { //No hay ninguna pared en esa X
                 res = true;
-                this->_paredes[i].second.push_back(p.y());
-                int j = this->_paredes[i].second.size() - 1;
-                while (j > 0 && this->_paredes[i].second[j] < this->_paredes[i].second[j - 1]) {
-                    swap(this->_paredes[i].second, j, j - 1);
+                vector<int> vecY;
+                vecY.push_back(p.y());
+                pair<int, vector<int>> tupla = make_pair(p.x(), vecY);
+                this->_paredes.push_back(tupla);
+                int j = this->_paredes.size() - 1;
+                while (j > 0 && this->_paredes[j].first <
+                                this->_paredes[j - 1].first) { //Agrego la tupla al final y la ordeno segun X
+                    pair<int, vector<int>> aux = make_pair(this->_paredes[j].first, this->_paredes[j].second);
+                    this->_paredes[j] = this->_paredes[j - 1];
+                    this->_paredes[j - 1] = aux;
                     j--;
                 }
-            }
-        }
-
-        else if (p.x() < this->_paredes[i].first) { //No hay ninguna pared en esa X
-            res = true;
-            vector<int> vecY;
-            vecY.push_back(p.y());
-            pair<int, vector<int>> tupla = make_pair(p.x(), vecY);
-            this->_paredes.push_back(tupla);
-            int j = this->_paredes.size() - 1;
-            while (j > 0 && this->_paredes[j].first < this->_paredes[j-1].first) { //Agrego la tupla al final y la ordeno segun X
-                pair<int, vector<int>> aux = make_pair(this->_paredes[j].first, this->_paredes[j].second);
-                this->_paredes[j] = this->_paredes[j-1];
-                this->_paredes[j-1] = aux;
-                j--;
             }
         }
     }
@@ -88,39 +94,45 @@ bool Mapa::agPared(Coord p) {
 
 bool Mapa::agDeposito(Coord d) {
     bool res = false;
-    for (int i = 0; i < this->_depositos.size(); i++) {
+    if (this->_depositos.empty()) {
+        vector<int> vecY;
+        vecY.push_back(d.y());
+        this->_depositos.push_back(make_pair(d.x(), vecY));
+        res = true;
+    } else {
+        for (int i = 0; i < this->_depositos.size(); i++) {
 
-        if (d.x() == this->_depositos[i].first) { //Ya hay cajas con esa X
+            if (d.x() == this->_depositos[i].first) { //Ya hay cajas con esa X
 
-            bool esta = false;
-            for (int j = 0; j < this->_depositos[i].second.size(); ++j) { //Me fijo si está esa caja ya en el mapa
-                if (this->_depositos[i].second[j] == d.y()) {
-                    esta = true;
+                bool esta = false;
+                for (int j = 0; j < this->_depositos[i].second.size(); ++j) { //Me fijo si está esa caja ya en el mapa
+                    if (this->_depositos[i].second[j] == d.y()) {
+                        esta = true;
+                    }
                 }
-            }
-            if (!esta) { //Si no está, la agrego al final y la ordeno
+                if (!esta) { //Si no está, la agrego al final y la ordeno
+                    res = true;
+                    this->_depositos[i].second.push_back(d.y());
+                    int j = this->_depositos[i].second.size() - 1;
+                    while (j > 0 && this->_depositos[i].second[j] < this->_depositos[i].second[j - 1]) {
+                        swap(this->_depositos[i].second, j, j - 1);
+                        j--;
+                    }
+                }
+            } else if (d.x() > this->_depositos[i].first) { //No hay ninguna caja en esa X
                 res = true;
-                this->_depositos[i].second.push_back(d.y());
-                int j = this->_depositos[i].second.size() - 1;
-                while (j > 0 && this->_depositos[i].second[j] < this->_depositos[i].second[j - 1]) {
-                    swap(this->_depositos[i].second, j, j - 1);
+                vector<int> vecY;
+                vecY.push_back(d.y());
+                pair<int, vector<int>> tupla = make_pair(d.x(), vecY);
+                this->_depositos.push_back(tupla);
+                int j = this->_depositos.size() - 1;
+                while (j > 0 && this->_depositos[j].first <
+                                this->_depositos[j - 1].first) { //Agrego la tupla al final y la ordeno segun X
+                    pair<int, vector<int>> aux = make_pair(this->_depositos[j].first, this->_depositos[j].second);
+                    this->_depositos[j] = this->_depositos[j - 1];
+                    this->_depositos[j - 1] = aux;
                     j--;
                 }
-            }
-        }
-
-        else if (d.x() < this->_depositos[i].first) { //No hay ninguna caja en esa X
-            res = true;
-            vector<int> vecY;
-            vecY.push_back(d.y());
-            pair<int, vector<int>> tupla = make_pair(d.x(), vecY);
-            this->_depositos.push_back(tupla);
-            int j = this->_depositos.size() - 1;
-            while (j > 0 && this->_depositos[j].first < this->_depositos[j-1].first) { //Agrego la tupla al final y la ordeno segun X
-                pair<int, vector<int>> aux = make_pair(this->_depositos[j].first, this->_depositos[j].second);
-                this->_depositos[j] = this->_depositos[j-1];
-                this->_depositos[j-1] = aux;
-                j--;
             }
         }
     }
@@ -203,6 +215,9 @@ void Mapa::tirarBomba(Coord c) {
 }
 
 Mapa &Mapa::operator=(const Mapa &mapa) {
+    vector<pair<int,  vector<int>>> vecVacio;
+    this->_paredes = vecVacio;
+    this->_depositos = vecVacio;
     for (Coord elem : mapa.Depositos()) {
         this->agDeposito(elem);
     }

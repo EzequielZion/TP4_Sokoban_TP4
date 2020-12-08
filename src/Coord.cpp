@@ -1,6 +1,9 @@
 #include "Coord.h"
 #include "math.h"
 
+
+Coord::Coord() : _coord(0,0) {}
+
 Coord::Coord(int X, int Y) : _coord(make_pair(X,Y)) {}
 
 Coord::Coord(const Coordenada coord) : _coord(coord.first, coord.second) {}
