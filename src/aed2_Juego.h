@@ -3,6 +3,8 @@
 
 #include <vector>
 #include "Tipos.h"
+#include "Coord.h"
+#include "Sokoban.h"
 
 class aed2_Juego {
 public:
@@ -31,9 +33,8 @@ public:
     void deshacer();
 
 private:
-
-	// Completar
-
+    vector<aed2_Nivel> _nivelesPendientes;
+    Sokoban _sokoActual;
 };
 
 #endif // AED2_JUEGO_H

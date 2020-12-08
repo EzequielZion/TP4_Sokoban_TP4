@@ -45,11 +45,6 @@ bool busquedaBinariaY(vector<int> vec, int l, int r, Coord &c) {
 
 Mapa::Mapa() : _paredes(), _depositos(), _bombasTiradas() { }
 
-Mapa &Mapa::operator=(const Mapa &mapa) {
-    for (auto elem : mapa.Depositos()) {
-    }
-}
-
 bool Mapa::agPared(Coord p) {
     bool res = false;
     for (int i = 0; i < this->_paredes.size(); i++) {
@@ -205,4 +200,15 @@ list<Coord> Mapa::bombasTiradas() const {
 
 void Mapa::tirarBomba(Coord c) {
     this->_bombasTiradas.push_back(c);
+}
+
+Mapa &Mapa::operator=(const Mapa &mapa) {
+    for (Coord elem : mapa.Depositos()) {
+        this->agDeposito(elem);
+    }
+    for (Coord elem : mapa.Paredes()) {
+        this->agPared(elem);
+    }
+    this->_bombasTiradas = mapa.bombasTiradas();
+    return *this;
 }

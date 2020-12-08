@@ -3,8 +3,8 @@
 #include "Coord.h"
 
 Sokoban::Sokoban(Nivel n) : _mapa(n.MapaN()), _bombas(n.BombasN()),
-                            _cajas(n.CajasN()), _persona(n.PersonaN())
-                            //_historial()
+                            _cajas(n.CajasN()), _persona(n.PersonaN()),
+                            _accion()
                             {
                                 int contCajasEnDepositos = 0;
                                 for (Coord d : n.MapaN().Depositos()) {
@@ -21,19 +21,19 @@ Sokoban::Sokoban(Nivel n) : _mapa(n.MapaN()), _bombas(n.BombasN()),
                                 _depositosSinCaja = n.CajasN().size() - contCajasEnDepositos;
                             }
 
-Mapa Sokoban::mapa() {
+Mapa Sokoban::mapa() const {
     return this->_mapa;
 }
 
-Nat Sokoban::bombas() {
+Nat Sokoban::bombas() const {
     return this->_bombas;
 }
 
-Coord Sokoban::persona() {
+Coord Sokoban::persona() const {
     return this->_persona;
 }
 
-bool Sokoban::hayCaja(Coord cAVer) {
+bool Sokoban::hayCaja(Coord cAVer) const {
     bool res = false;
     for(Coord c : this->_cajas){
         if(cAVer == c){
@@ -43,7 +43,7 @@ bool Sokoban::hayCaja(Coord cAVer) {
     return res;
 }
 
-bool Sokoban::noHayParedNiCaja(Coord cAVer) {
+bool Sokoban::noHayParedNiCaja(Coord cAVer) const {
     bool res = true;
     for(Coord p : this->_mapa.Paredes()){
         if(cAVer == p){
@@ -58,7 +58,7 @@ bool Sokoban::noHayParedNiCaja(Coord cAVer) {
     return res;
 }
 
-bool Sokoban::puedeMover(Direccion dir) {
+bool Sokoban::puedeMover(Direccion dir) const {
     bool res = false;
     Coord proxCord = dir.proximaCoord(this->persona());
     Coord proxProxCord = dir.proximaCoord(proxCord);
@@ -73,7 +73,6 @@ bool Sokoban::puedeMover(Direccion dir) {
 }
 
 void Sokoban::mover(Direccion dir) {
-    //También se tiene que poder agregar al historial
     Coord proxCord = dir.proximaCoord(this->persona());
     Coord proxProxCord = dir.proximaCoord(proxCord);
 
@@ -130,7 +129,7 @@ void Sokoban::tirarBomba(Coord c) {
     }
 }
 
-bool Sokoban::gano() {
+bool Sokoban::gano() const {
     bool res = false;
     if (this->_depositosSinCaja == 0) {
         res = true;
@@ -138,7 +137,7 @@ bool Sokoban::gano() {
     return res;
 }
 
-bool Sokoban::hayCajas(set<Coord> cajas) {
+bool Sokoban::hayCajas(set<Coord> cajas) const {
     bool res = true;
     bool esta;
     for (Coord cajaAChequear : cajas) {

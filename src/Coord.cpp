@@ -1,4 +1,5 @@
 #include "Coord.h"
+#include "math.h"
 
 Coord::Coord(int X, int Y) : _coord(make_pair(X,Y)) {}
 
@@ -24,4 +25,12 @@ Coord& Coord::operator=(const Coord &coord) {
     this->_coord.first = coord.x();
     this->_coord.second = coord.y();
     return *this;
+}
+
+bool Coord::operator<(const Coord &coord) {
+    return (this->_coord.first + this->_coord.second) < (coord.y() + coord.y());
+}
+
+bool Coord::operator>(const Coord &coord) {
+    return (this->_coord.first + this->_coord.second) > (coord.y() + coord.y());
 }
