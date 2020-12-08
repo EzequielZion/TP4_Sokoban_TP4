@@ -23,6 +23,8 @@ public:
 
     set<Coord> Paredes() const;
 
+    bool
+
     set<Coord> bombasTiradas() const;
 
 private:
