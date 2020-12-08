@@ -23,14 +23,14 @@ public:
 
     set<Coord> Paredes() const;
 
-    bool
+    void tirarBomba(Coord c);
 
     set<Coord> bombasTiradas() const;
 
 private:
     vector<pair<int,  vector<int>>> _paredes;
     vector<pair<int,  vector<int>>> _depositos;
-    list<Coordenada> _bombasTiradas;
+    set<Coord> _bombasTiradas;
 };
 
 using namespace std;

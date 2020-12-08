@@ -187,3 +187,7 @@ set<Coord> Mapa::Paredes() const {
 set<Coord> Mapa::bombasTiradas() const {
 
 }
+
+void Mapa::tirarBomba(Coord c) {
+    this->_bombasTiradas.insert(c);
+}
