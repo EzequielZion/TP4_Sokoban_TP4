@@ -50,7 +50,7 @@ Mapa &Mapa::operator=(const Mapa &mapa) {
     }
 }
 
-bool Mapa::AgPared(Coord p) {
+bool Mapa::agPared(Coord p) {
     bool res = false;
     for (int i = 0; i < this->_paredes.size(); i++) {
 
@@ -91,7 +91,7 @@ bool Mapa::AgPared(Coord p) {
     return res;
 }
 
-bool Mapa::AgDeposito(Coord d) {
+bool Mapa::agDeposito(Coord d) {
     bool res = false;
     for (int i = 0; i < this->_depositos.size(); i++) {
 
@@ -132,7 +132,7 @@ bool Mapa::AgDeposito(Coord d) {
     return res;
 }
 
-bool Mapa::HayPared(Coord c) const {
+bool Mapa::hayPared(Coord c) const {
     int l = 0;
     int r = this->_paredes.size()-1;
     bool res = false;
@@ -147,7 +147,7 @@ bool Mapa::HayPared(Coord c) const {
     return res;
 }
 
-bool Mapa::HayDeposito(Coord c) const {
+bool Mapa::hayDeposito(Coord c) const {
     int l = 0;
     int r = this->_depositos.size()-1;
     bool res = false;
