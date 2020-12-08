@@ -3,8 +3,8 @@
 #include "Coord.h"
 
 Sokoban::Sokoban(Nivel n) : _mapa(n.MapaN()), _bombas(n.BombasN()),
-                            _cajas(n.CajasN()), _persona(n.PersonaN())
-                            //_historial()
+                            _cajas(n.CajasN()), _persona(n.PersonaN()),
+                            _accion()
                             {
                                 int contCajasEnDepositos = 0;
                                 for (Coord d : n.MapaN().Depositos()) {
@@ -73,7 +73,6 @@ bool Sokoban::puedeMover(Direccion dir) {
 }
 
 void Sokoban::mover(Direccion dir) {
-    //También se tiene que poder agregar al historial
     Coord proxCord = dir.proximaCoord(this->persona());
     Coord proxProxCord = dir.proximaCoord(proxCord);
 
