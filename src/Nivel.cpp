@@ -19,28 +19,27 @@ Nivel::Nivel(aed2_Nivel n) {
     this->_bombas = n.cantidadBombas;
 }
 
-Mapa Nivel::MapaN(){
+Mapa Nivel::MapaN() const{
     return this->_mapa;
 }
 
-set<Coord> Nivel::CajasN(){
+set<Coord> Nivel::CajasN() const{
     return this->_cajas;
 }
 
-Coord Nivel::PersonaN(){
+Coord Nivel::PersonaN() const{
     return this->_persona;
 }
 
-Nat Nivel::BombasN(){
+Nat Nivel::BombasN() const{
     return this->_bombas;
 }
 
-//Para recordar:
-/*  struct aed2_Nivel {
-    set<Coordenada> paredes;
-    set<Coordenada> depositos;
-    set<Coordenada> cajas;
-    Coordenada posicionInicial;
-    Nat cantidadBombas;
-    };
- */
+Nivel& Nivel::operator=(const Nivel &n) {
+    this->_bombas = n.BombasN();
+    this->_cajas = n.CajasN();
+    this->_mapa = n.MapaN();
+    this->_persona = n.PersonaN();
+    return *this;
+}
+

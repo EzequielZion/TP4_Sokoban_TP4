@@ -30,9 +30,4 @@ private:
     stack<tuple<tuple<bool, Coord, Coord*>, tuple<bool>, tuple<bool, Coord>>> _accion;
 };
 
-//Hay cosas que puse copiando directamente
-// del docs que se entremezclan con Nivel y Mapa que no sé si tienen que ir
-// en el cpp y creo que es mejor que las discutamos entre todos je
-//(tal vez sí tienen que ir y yo soy medio colgado nomás lmao)
-
 #endif //TP4_SOKOBAN_SOKOBAN_H

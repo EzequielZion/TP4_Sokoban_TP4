@@ -20,6 +20,10 @@ public:
 
     Coord& operator=(const Coord &coord);
 
+    bool operator<(const Coord &coord);
+
+    bool operator>(const Coord &coord);
+
     bool operator!=(const Coord &coord);
 
     bool operator==(const Coord &coord);

@@ -7,15 +7,17 @@ class Nivel {
 public:
     Nivel(Mapa m, Coord p, set<Coord> cs, Nat b);
 
+    Nivel& operator=(const Nivel &n);
+
     Nivel(aed2_Nivel n);
 
-    Mapa MapaN();
+    Mapa MapaN() const;
 
-    set<Coord> CajasN();
+    set<Coord> CajasN() const;
 
-    Coord PersonaN();
+    Coord PersonaN() const;
 
-    Nat BombasN();
+    Nat BombasN() const;
 
 private:
     set<Coord> _cajas;
