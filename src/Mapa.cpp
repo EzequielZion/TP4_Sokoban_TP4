@@ -141,7 +141,6 @@ bool Mapa::agDeposito(Coord d) {
 }
 
 bool Mapa::hayPared(Coord c) const {
-   // int r = this->_paredes.size()-1;
     bool res = false;
 
     bool coincideBomba = false;
@@ -164,16 +163,14 @@ bool Mapa::hayPared(Coord c) const {
 }
 
 bool Mapa::hayDeposito(Coord c) const {
-    int l = 0;
-    int r = this->_depositos.size()-1;
     bool res = false;
-    int indiceX = busquedaBinariaX(this->_depositos, l, r, c);
+    int indiceX = busquedaBinariaX(this->_depositos, 0, this->_depositos.size(), c);
 
     if (indiceX != -1) {
-        int indiceY = busquedaBinariaY(this->_depositos[indiceX].second, l, r, c);
+        int indiceY = busquedaBinariaY(this->_depositos[indiceX].second, 0, this->_depositos.size(), c);
         if (indiceY != -1) {
             for (Coord b : this->_bombasTiradas) {
-
+// zapato
             }
         }
     }
