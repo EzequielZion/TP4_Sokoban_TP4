@@ -149,8 +149,15 @@ bool Mapa::hayPared(Coord c) const {
         }
     }
 
+    vector<pair<int, vector<int>>> vecAux = this->_paredes;
+    int cont = 0;
+    for (pair<int, vector<int>> tupla : vecAux) {
+        cont++;
+    }
+    int l = 0;
+
     if (!coincideBomba) {
-        int indiceX = busquedaBinariaX(this->_paredes, 0, this->_paredes.size(), c);
+        int indiceX = busquedaBinariaX(vecAux, l, cont, c);
         if (indiceX != -1) {
             int indiceY = busquedaBinariaY(this->_paredes[indiceX].second, 0, this->_paredes[indiceX].second.size(), c);
             if (indiceY != -1) {
