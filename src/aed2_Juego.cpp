@@ -7,15 +7,15 @@ aed2_Juego::aed2_Juego(vector<aed2_Nivel> ns) : _nivelesPendientes(), _sokoActua
 }
 
 bool aed2_Juego::hayPared(Coordenada c) const {
-    return this->_sokoActual.mapa().hayPared(c);
+    return this->_sokoActual.mapa().hayPared(Coord(c));
 }
 
 bool aed2_Juego::hayDeposito(Coordenada c) const {
-    return this->_sokoActual.mapa().hayDeposito(c);
+    return this->_sokoActual.mapa().hayDeposito(Coord(c));
 }
 
 bool aed2_Juego::hayCaja(Coordenada c) const {
-    return this->_sokoActual.hayCaja(c);
+    return this->_sokoActual.hayCaja(Coord(c));
 }
 
 Coordenada aed2_Juego::posicionActual() const {

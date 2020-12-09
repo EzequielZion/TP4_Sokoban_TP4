@@ -44,7 +44,7 @@ protected:
 TEST_F(JuegoTest, empezar_juego) {
     aed2_Juego j({n1});
 
-    EXPECT_TRUE(j.hayPared(pos1));
+    EXPECT_TRUE(j.hayPared(pos4));
     EXPECT_TRUE(j.hayPared(pos2));
     EXPECT_TRUE(j.hayPared(pos3));
     EXPECT_TRUE(j.hayDeposito(pos4));
