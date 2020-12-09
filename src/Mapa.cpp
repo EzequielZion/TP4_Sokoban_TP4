@@ -15,7 +15,7 @@ int busquedaBinariaX(vector<pair<int, vector<int>>> vec, int l, int r, Coord &c)
         }
 
         if (vec[mid].first > c.x()) {
-            return busquedaBinariaX(vec, l, mid - 1, c);
+            return busquedaBinariaX(vec, l, mid, c);
         }
 
         return busquedaBinariaX(vec, mid + 1, r, c);
@@ -33,7 +33,7 @@ int busquedaBinariaY(vector<int> vec, int l, int r, Coord &c) {
         }
 
         if (vec[mid] > c.x()) {
-            return busquedaBinariaY(vec, l, mid - 1, c);
+            return busquedaBinariaY(vec, l, mid, c);
         }
 
         return busquedaBinariaY(vec, mid + 1, r, c);
@@ -141,7 +141,6 @@ bool Mapa::agDeposito(Coord d) {
 
 bool Mapa::hayPared(Coord c) const {
     int l = 0;
-    int r = this->_paredes.size();
     bool res = false;
 
     bool coincideBomba = false;
@@ -152,7 +151,7 @@ bool Mapa::hayPared(Coord c) const {
     }
 
     if (!coincideBomba) {
-        int indiceX = busquedaBinariaX(this->_paredes, l, r, c);
+        int indiceX = busquedaBinariaX(this->_paredes, l, this->_paredes.size(), c);
         if (indiceX != -1) {
             int indiceY = busquedaBinariaY(this->_paredes[indiceX].second, l, this->_paredes[indiceX].second.size(), c);
             if (indiceY != -1) {
