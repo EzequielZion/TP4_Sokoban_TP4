@@ -6,7 +6,7 @@ void swap(vector<int> &vec, int i, int j) {
     vec[j] = vec[aux];
 }
 
-int busquedaBinariaX(vector<pair<int, vector<int>>> vec, int l, int r, Coord &c) {
+int busquedaBinariaX(vector<pair<int, vector<int>>> vec, int l, int r, Coord c) {
     if (r >= l) {
         int mid = l + (r - l) / 2;
 
@@ -24,7 +24,7 @@ int busquedaBinariaX(vector<pair<int, vector<int>>> vec, int l, int r, Coord &c)
     return -1;
 }
 
-int busquedaBinariaY(vector<int> vec, int l, int r, Coord &c) {
+int busquedaBinariaY(vector<int> vec, int l, int r, Coord c) {
     if (r >= l) {
         int mid = l + (r - l) / 2;
 
