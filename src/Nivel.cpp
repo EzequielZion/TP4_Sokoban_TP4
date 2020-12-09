@@ -13,7 +13,7 @@ Nivel::Nivel(aed2_Nivel n) {
     }
 
     _cajas = set<Coord>();
-    for (Coordenada c : n.cajas) {
+    for(Coordenada c : n.cajas) {
         _cajas.insert(Coord(c));
     }
 
