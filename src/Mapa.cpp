@@ -72,7 +72,7 @@ bool Mapa::agPared(Coord p) {
                         j--;
                     }
                 }
-            } else if (p.x() > this->_paredes[i].first) { //No hay ninguna pared en esa X
+            } else if (p.x() > this->_paredes[i].first  && !res) { //No hay ninguna pared en esa X
                 res = true;
                 vector<int> vecY;
                 vecY.push_back(p.y());
@@ -119,7 +119,7 @@ bool Mapa::agDeposito(Coord d) {
                         j--;
                     }
                 }
-            } else if (d.x() > this->_depositos[i].first) { //No hay ninguna caja en esa X
+            } else if (d.x() > this->_depositos[i].first && !res) { //No hay ninguna caja en esa X
                 res = true;
                 vector<int> vecY;
                 vecY.push_back(d.y());
