@@ -15,7 +15,7 @@ public:
 
     int ord() const;
 
-    Coord proximaCoord(const Coord &coord);
+    Coord proximaCoord(Coord coord);
 
 private:
     Nat _ord;
