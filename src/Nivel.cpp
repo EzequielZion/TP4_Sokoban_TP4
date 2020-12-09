@@ -11,14 +11,12 @@ Nivel::Nivel(aed2_Nivel n) {
     for(Coordenada c : n.depositos){
         _mapa.agDeposito(Coord(c));
     }
-    vector<Coord> vecCajas;
-    for (Coordenada c : n.cajas) {
-        vecCajas.push_back(Coord(c));
-    }
+
     _cajas = set<Coord>();
-    for (Coord c : vecCajas) {
-        _cajas.insert(c);
+    for (Coordenada c : n.cajas) {
+        _cajas.insert(Coord(c));
     }
+
     Coord pers = Coord(n.posicionInicial.first, n.posicionInicial.second);
     _persona = pers;
     _bombas = n.cantidadBombas;
