@@ -16,11 +16,13 @@ public:
 
     Coord(const Coord &coord);
 
+    Coord(Coord &coord);
+
     int x() const;
 
     int y() const;
 
-    Coord& operator=(const Coord &coord);
+    Coord& operator=(Coord coord);
 
     bool operator<(const Coord &coord) const;
 

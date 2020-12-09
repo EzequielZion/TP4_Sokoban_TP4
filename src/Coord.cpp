@@ -18,8 +18,7 @@ int Coord::y() const {
     return this->_coord.second;
 }
 
-
-Coord &Coord::operator=(const Coord &aCopiar) {
+Coord &Coord::operator=(Coord aCopiar) {
     _coord = aCopiar._coord; // O(1)
     return *this;
 }
