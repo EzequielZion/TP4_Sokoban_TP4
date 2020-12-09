@@ -24,7 +24,7 @@ int busquedaBinariaX(vector<pair<int, vector<int>>> vec, int l, int r, Coord &c)
     return -1;
 }
 
-bool busquedaBinariaY(vector<int> vec, int l, int r, Coord &c) {
+int busquedaBinariaY(vector<int> vec, int l, int r, Coord &c) {
     if (r >= l) {
         int mid = l + (r - l) / 2;
 
@@ -141,7 +141,7 @@ bool Mapa::agDeposito(Coord d) {
 
 bool Mapa::hayPared(Coord c) const {
     int l = 0;
-    int r = this->_paredes.size()-1;
+    int r = this->_paredes.size();
     bool res = false;
 
     bool coincideBomba = false;
@@ -154,7 +154,7 @@ bool Mapa::hayPared(Coord c) const {
     if (!coincideBomba) {
         int indiceX = busquedaBinariaX(this->_paredes, l, r, c);
         if (indiceX != -1) {
-            int indiceY = busquedaBinariaY(this->_paredes[indiceX].second, l, r, c);
+            int indiceY = busquedaBinariaY(this->_paredes[indiceX].second, l, this->_paredes[indiceX].second.size(), c);
             if (indiceY != -1) {
                 res = true;
             }
@@ -165,16 +165,14 @@ bool Mapa::hayPared(Coord c) const {
 
 bool Mapa::hayDeposito(Coord c) const {
     int l = 0;
-    int r = this->_depositos.size()-1;
+    int r = this->_depositos.size();
     bool res = false;
     int indiceX = busquedaBinariaX(this->_depositos, l, r, c);
 
     if (indiceX != -1) {
-        int indiceY = busquedaBinariaY(this->_depositos[indiceX].second, l, r, c);
+        int indiceY = busquedaBinariaY(this->_depositos[indiceX].second, l, this->_depositos[indiceX].second.size(), c);
         if (indiceY != -1) {
-            for (Coord b : this->_bombasTiradas) {
-
-            }
+            res = true;
         }
     }
     return res;
