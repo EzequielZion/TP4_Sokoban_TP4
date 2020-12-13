@@ -18,29 +18,7 @@ int Coord::y() const {
     return this->_coord.second;
 }
 
-Coord &Coord::operator=(Coord aCopiar) {
-    _coord = aCopiar._coord; // O(1)
-    return *this;
-}
-
-bool Coord::operator<(const Coord &c) const {
-    return this->x() < c.x() || (this->x() == c.x() && this->y() < c.y()); // O(1)
-}
-
-bool Coord::operator==(const Coord &c) const {
-    return this->x() == c.x() && this->y() == c.y(); // O(1)
-}
-
-bool Coord::operator>(const Coord &c) const {
-    return !(*this < c || *this == c); // O(1)
-}
-
-bool Coord::operator!=(const Coord &c) const {
-    return !(*this == c); // O(1)
-}
-
-
-/*bool Coord::operator!=(const Coord &coord) const {
+bool Coord::operator!=(const Coord &coord) const {
     return this->_coord.first != coord.x() || this->_coord.second != coord.y();
 }
 
@@ -59,5 +37,5 @@ bool Coord::operator<(const Coord &coord) const {
 }
 
 bool Coord::operator>(const Coord &coord) const {
-    return !(*this < coord || *this == coord); // O(1)
-}*/
+    return this->x() > coord.x() || (this->x() == coord.x() && this->y() > coord.y());
+}

@@ -1,7 +1,3 @@
-//
-// Created by santi on 12/7/2020.
-//
-
 #ifndef TP4_SOKOBAN_DIRECCION_H
 #define TP4_SOKOBAN_DIRECCION_H
 #include "Tipos.h"
@@ -9,16 +5,20 @@
 
 class Direccion {
 public:
+    Direccion(Nat ord);
+
     Direccion(PuntoCardinal pc);
+
+    Direccion(const Direccion &dir);
 
     Direccion& operator=(const Direccion &dir);
 
     int ord() const;
 
-    Coord proximaCoord(Coord coord);
+    Coord proximaCoord(const Coord &coord) const;
 
 private:
-    Nat _ord;
+    Nat _ord{};
 };
 
 

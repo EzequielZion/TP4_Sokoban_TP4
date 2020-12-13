@@ -27,7 +27,8 @@ Nat aed2_Juego::cantidadBombas() const {
 }
 
 bool aed2_Juego::sePuedeMover(PuntoCardinal pc) const {
-    return this->_sokoActual.puedeMover(Direccion(pc));
+    Direccion dir = Direccion(pc);
+    return this->_sokoActual.puedeMover(dir);
 }
 
 // IMPORTANTE: Debe devolver:

@@ -1,9 +1,7 @@
-//
-// Created by santi on 12/7/2020.
-//
-
 #include "Direccion.h"
 #include "Coord.h"
+
+Direccion::Direccion(Nat ord) : _ord(ord) {}
 
 Direccion::Direccion(PuntoCardinal pc) {
     switch(pc) {
@@ -22,22 +20,27 @@ Direccion::Direccion(PuntoCardinal pc) {
     }
 }
 
-Coord Direccion::proximaCoord(Coord coord) {
+Direccion::Direccion(const Direccion &dir) {
+    *this = dir;
+}
+
+Coord Direccion::proximaCoord(const Coord &coord) const {
+    Coord res;
     switch (_ord) {
-        case 0: // Norte
-            coord = Coord(coord.x(), coord.y() + 1);
+        case 0:
+            res = Coord(coord.x(), coord.y() + 1);
             break;
-        case 1: // Este
-            coord = Coord(coord.x() + 1, coord.y());
+        case 1:
+            res = Coord(coord.x() + 1, coord.y());
             break;
-        case 2: // Sur
-            coord = Coord(coord.x(), coord.y() - 1);
+        case 2:
+            res = Coord(coord.x(), coord.y() - 1);
             break;
-        case 3: // Oeste
-            coord = Coord(coord.x() - 1, coord.y());
+        case 3:
+            res = Coord(coord.x() - 1, coord.y());
             break;
     }
-    return coord;
+    return res;
 }
 
 int Direccion::ord() const {

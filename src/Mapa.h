@@ -9,15 +9,17 @@ class Mapa {
 public:
     Mapa();
 
+    Mapa(const Mapa &m);
+
     Mapa& operator=(const Mapa& aCopiar);
 
     bool agPared(Coord p);
 
     bool agDeposito(Coord d);
 
-    bool hayPared(Coord c) const;
+    bool hayPared(const Coord &c) const;
 
-    bool hayDeposito(Coord c) const;
+    bool hayDeposito(const Coord &c) const;
 
     set<Coord> Depositos() const;
 

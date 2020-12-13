@@ -1,12 +1,16 @@
 #include "Mapa.h"
 
+Mapa::Mapa() : _paredes(), _depositos(), _bombasTiradas() { }
+
+Mapa::Mapa(const Mapa &m) : _paredes(m._paredes), _depositos(m._depositos), _bombasTiradas(m._bombasTiradas) {}
+
 void swap(vector<int> &vec, int i, int j) {
     int aux = i;
     vec[i] = vec[j];
     vec[j] = vec[aux];
 }
 
-int busquedaBinariaX(vector<pair<int, vector<int>>> vec, int l, int r, Coord &c) {
+int busquedaBinariaX(vector<pair<int, vector<int>>> vec, int l, int r,Coord c) {
     if (r >= l) {
         int mid = (l + r) / 2;
 
@@ -24,7 +28,7 @@ int busquedaBinariaX(vector<pair<int, vector<int>>> vec, int l, int r, Coord &c)
     return -1;
 }
 
-int busquedaBinariaY(vector<int> vec, int l, int r, Coord &c) {
+int busquedaBinariaY(vector<int> vec, int l, int r, Coord c) {
     if (r >= l) {
         int mid = l + (r - l) / 2;
 
@@ -41,9 +45,6 @@ int busquedaBinariaY(vector<int> vec, int l, int r, Coord &c) {
 
     return -1;
 }
-
-
-Mapa::Mapa() : _paredes(), _depositos(), _bombasTiradas() { }
 
 bool Mapa::agPared(Coord p) {
     bool res = false;
@@ -139,25 +140,18 @@ bool Mapa::agDeposito(Coord d) {
     return res;
 }
 
-bool Mapa::hayPared(Coord c) const {
+bool Mapa::hayPared(const Coord &c) const {
     bool res = false;
 
     bool coincideBomba = false;
-    for (Coord b : this->_bombasTiradas) {
+    for (const Coord& b : this->_bombasTiradas) {
         if (b.x() == c.x() || b.y() == c.y()) {
             coincideBomba = true;
         }
     }
 
-    vector<pair<int, vector<int>>> vecAux = this->_paredes;
-    int cont = 0;
-    for (pair<int, vector<int>> tupla : vecAux) {
-        cont++;
-    }
-    int l = 0;
-
     if (!coincideBomba) {
-        int indiceX = busquedaBinariaX(vecAux, l, cont, c);
+        int indiceX = busquedaBinariaX(this->_paredes, 0, this->_paredes.size(), c);
         if (indiceX != -1) {
             int indiceY = busquedaBinariaY(this->_paredes[indiceX].second, 0, this->_paredes[indiceX].second.size(), c);
             if (indiceY != -1) {
@@ -168,14 +162,12 @@ bool Mapa::hayPared(Coord c) const {
     return res;
 }
 
-bool Mapa::hayDeposito(Coord c) const {
-    int l = 0;
-    int r = this->_depositos.size();
+bool Mapa::hayDeposito(const Coord &c) const {
     bool res = false;
-    int indiceX = busquedaBinariaX(this->_depositos, l, r, c);
+    int indiceX = busquedaBinariaX(this->_depositos, 0, this->_depositos.size(), c);
 
     if (indiceX != -1) {
-        int indiceY = busquedaBinariaY(this->_depositos[indiceX].second, l, this->_depositos[indiceX].second.size(), c);
+        int indiceY = busquedaBinariaY(this->_depositos[indiceX].second, 0, this->_depositos[indiceX].second.size(), c);
         if (indiceY != -1) {
             res = true;
         }
