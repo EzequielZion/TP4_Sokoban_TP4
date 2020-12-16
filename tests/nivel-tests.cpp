@@ -62,8 +62,8 @@ TEST(Nivel, MismosDepositos) {
 
 TEST(Nivel, MismaPosicionInicial) {
     aed2_Nivel n;
-    Nivel a = Nivel(n);
     n.posicionInicial = Coordenada(5,4);
+    Nivel a = Nivel(n);
 
     Coord persona1 = n.posicionInicial;
     Coord persona2 = a.PersonaN();
