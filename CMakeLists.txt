@@ -36,14 +36,26 @@ endif (WITH_GUI)
 
 add_executable(correrTestsJuego ${SOURCE_FILES} tests/juego-tests.cpp src/Direccion.cpp src/Direccion.h src/Mapa.cpp src/Mapa.h src/Nivel.cpp src/Nivel.h src/Sokoban.cpp src/Sokoban.h src/Coord.cpp src/Coord.h tests/direccion-tests.cpp)
 add_executable(correrTestsMapa  ${SOURCE_FILES} tests/mapa-tests.cpp src/Mapa.cpp src/Mapa.h src/Nivel.cpp src/Nivel.h src/Sokoban.cpp src/Sokoban.h src/Coord.cpp src/Coord.h)
+add_executable(correrTestsNivel  ${SOURCE_FILES} tests/nivel-tests.cpp src/Mapa.cpp src/Mapa.h src/Nivel.cpp src/Nivel.h src/Sokoban.cpp src/Sokoban.h src/Coord.cpp src/Coord.h)
+add_executable(correrTestsSokoban  ${SOURCE_FILES} tests/sokoban-tests.cpp tests/nivel-tests.cpp src/Mapa.cpp src/Mapa.h src/Nivel.cpp src/Nivel.h src/Sokoban.cpp src/Sokoban.h src/Coord.cpp src/Coord.h)
+add_executable(correrTestsCoord  ${SOURCE_FILES} tests/coord-tests.cpp tests/nivel-tests.cpp src/Mapa.cpp src/Mapa.h src/Nivel.cpp src/Nivel.h src/Sokoban.cpp src/Sokoban.h src/Coord.cpp src/Coord.h)
+add_executable(correrTestsDireccion  ${SOURCE_FILES} tests/direccion-tests.cpp tests/nivel-tests.cpp src/Mapa.cpp src/Mapa.h src/Nivel.cpp src/Nivel.h src/Sokoban.cpp src/Sokoban.h src/Coord.cpp src/Coord.h)
 
 # Necesitamos asociar los archivos del framework de testing
 target_link_libraries(correrTestsJuego gtest gtest_main)
 target_link_libraries(correrTestsMapa gtest gtest_main)
+target_link_libraries(correrTestsCoord gtest gtest_main)
+target_link_libraries(correrTestsSokoban gtest gtest_main)
+target_link_libraries(correrTestsNivel gtest gtest_main)
+target_link_libraries(correrTestsDireccion gtest gtest_main)
 
 # Test suites a ejecutar
 add_test(correrTestsJuego juego_test)
 add_test(correrTestsMapa mapa_test)
+add_test(correrTestsNivel nivel_test)
+add_test(correrTestsSokoban sokoban_test)
+add_test(correrTestsCoord coord_test)
+add_test(correrTestsDireccion direccion_test)
 
 # Target para correr Valgrind
 add_custom_target(correrValgrindJuego

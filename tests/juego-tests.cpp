@@ -41,7 +41,7 @@ protected:
     }
 };
 
-TEST_F(JuegoTest, empezar_juego) {
+/*TEST_F(JuegoTest, empezar_juego) {
     aed2_Juego j({n1});
 
     EXPECT_TRUE(j.hayPared(pos1));
@@ -110,7 +110,7 @@ TEST_F(JuegoTest, mover_al_oeste) {
 
     EXPECT_FALSE(j.mover(Oeste));
     EXPECT_EQ(j.posicionActual(), posO);
-}
+}*/
 
 TEST_F(JuegoTest, no_se_puede_mover_NS) {
     aed2_Juego j({n1});

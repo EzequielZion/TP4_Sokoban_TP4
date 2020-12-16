@@ -2,40 +2,40 @@
 #include "math.h"
 
 
-Coord::Coord() : _coord(0,0) {}
+Coord::Coord() : _x(0), _y(0) {}
 
-Coord::Coord(int X, int Y) : _coord(make_pair(X,Y)) {}
+Coord::Coord(int X, int Y) : _x(X), _y(Y) {}
 
-Coord::Coord(const Coordenada coord) : _coord(coord.first, coord.second) {}
+Coord::Coord(const pair<int, int> coord) : _x(coord.first), _y(coord.second) {}
 
-Coord::Coord(const Coord &coord) : _coord(coord.x(), coord.y()) {}
+Coord::Coord(const Coord &coord) : _x(coord._x), _y(coord._y) {}
 
 int Coord::x() const {
-    return this->_coord.first;
+    return this->_x;
 }
 
 int Coord::y() const {
-    return this->_coord.second;
+    return this->_y;
 }
 
 bool Coord::operator!=(const Coord &coord) const {
-    return this->_coord.first != coord.x() || this->_coord.second != coord.y();
+    return this->_x != coord.x() || this->_y != coord.y();
 }
 
 bool Coord::operator==(const Coord &coord) const {
-    return this->_coord.first == coord.x() && this->_coord.second == coord.y();
+    return this->_x == coord.x() && this->_y == coord.y();
 }
 
 Coord& Coord::operator=(const Coord &coord) {
-    this->_coord.first = coord.x();
-    this->_coord.second = coord.y();
+    this->_x = coord._x;
+    this->_y = coord._y;
     return *this;
 }
 
 bool Coord::operator<(const Coord &coord) const {
-    return this->x() < coord.x() || (this->x() == coord.x() && this->y() < coord.y());
+    return this->_x < coord._x || (this->_x == coord._x && this->_y < coord._y);
 }
 
 bool Coord::operator>(const Coord &coord) const {
-    return this->x() > coord.x() || (this->x() == coord.x() && this->y() > coord.y());
+    return this->_x > coord._x || (this->_x == coord._x && this->_y > coord._y);
 }

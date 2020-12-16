@@ -3,19 +3,19 @@
 Sokoban::Sokoban(const Nivel &n) : _mapa(n.MapaN()), _bombas(n.BombasN()),
                             _cajas(n.CajasN()), _persona(n.PersonaN()),
                             _accion() {
-    int contCajasEnDepositos = 0;
-    for (const Coord& d : n.MapaN().Depositos()) {
-        bool cajaEnDeposito = false;
-        for (const Coord& c : n.CajasN()) {
+    int contCajasSinDepositos = 0;
+    for(Coord d : n.MapaN().Depositos()) {
+        bool cajaNoEnDeposito = true;
+        for(Coord c : n.CajasN()) {
             if (c == d) {
-                cajaEnDeposito = true;
+                cajaNoEnDeposito = false;
             }
         }
-        if (!cajaEnDeposito) {
-            contCajasEnDepositos++;
+        if (cajaNoEnDeposito) {
+            contCajasSinDepositos++;
         }
     }
-    _depositosSinCaja = n.CajasN().size() - contCajasEnDepositos;
+    _depositosSinCaja = contCajasSinDepositos;
 }
 
 Mapa Sokoban::mapa() const {
@@ -42,15 +42,11 @@ bool Sokoban::hayCaja(const Coord &coord) const {
 
 bool Sokoban::noHayParedNiCaja(const Coord &coord) const {
     bool res = true;
-    for(const Coord& p : this->_mapa.Paredes()){
-        if(coord == p){
-            res = false;
-        }
+    if (this->_mapa.hayPared(coord)) {
+        res = false;
     }
-    for (const Coord& c : this->_cajas) {
-        if(coord == c) {
-            res = false;
-        }
+    if (this->hayCaja(coord)) {
+        res = false;
     }
     return res;
 }
@@ -61,7 +57,7 @@ bool Sokoban::puedeMover(const Direccion &dir) const {
     Coord proxProxCord = dir.proximaCoord(proxCord);
     if(!this->_mapa.hayPared(proxCord)) {
         if (hayCaja(proxCord)) {
-            if(!noHayParedNiCaja(proxProxCord)) {
+            if(noHayParedNiCaja(proxProxCord)) {
                 res = true;
             }
         } else { res = true; }

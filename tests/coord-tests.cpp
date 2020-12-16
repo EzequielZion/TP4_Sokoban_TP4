@@ -1,128 +1,86 @@
 #include "gtest-1.8.1/gtest.h"
 #include "../src/Mapa.h"
 
+TEST(Coord, Constructor) {
+    Coord coord1 = Coord(1, -2);
+    EXPECT_EQ(coord1.x(), 1);
+    EXPECT_EQ(coord1.y(), -2);
 
-TEST(Mapa, vacio) {
-    Mapa m = Mapa();
-    for (int i = 0; i < 1000; ++i) {
-        for (int j = 0; j < 1000; ++j) {
-            Coord c = Coord(i, j);
-            EXPECT_FALSE(m.HayDeposito(c));
-            EXPECT_FALSE(m.HayPared(c));
-        }
-    }
-    EXPECT_TRUE(m.Depositos().empty());
+    Coord coord2 = Coord(0, 0);
+    EXPECT_EQ(coord2.x(), 0);
+    EXPECT_EQ(coord2.y(), 0);
 }
 
-TEST(Mapa, paredes) {
-    Mapa m = Mapa();
-    vector<Coord> paredes = {Coord(0, 0), Coord(1,4), Coord(-7,2),
-                             Coord(8,9), Coord(-1,-7), Coord(-5,0)};
+TEST(Coord, ConstructorCoordenada) {
+    Coordenada aed2_coordenada = Coordenada(2,-1);
+    Coord c = Coord(aed2_coordenada);
 
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_FALSE(m.HayPared(paredes[i]));
-    }
-
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_TRUE(m.AgPared(paredes[i]));
-    }
-
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_TRUE(m.HayPared(paredes[i]));
-    }
-
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_FALSE(m.AgPared(paredes[i]));
-    }
-
+    EXPECT_EQ(c.x(), 2);
+    EXPECT_EQ(c.y(), -1);
 }
 
-TEST(Mapa, depositos) {
-    Mapa m = Mapa();
-    vector<Coord> dep = {Coord(0, 0), Coord(34,46), Coord(-64,2),
-                         Coord(88,92), Coord(-3,-61), Coord(-58,54)};
+TEST(Coord, ConstructorCopia) {
+    Coord coord1 = Coord(5,-10);
+    EXPECT_EQ(coord1.x(), 5);
+    EXPECT_EQ(coord1.y(), -10);
 
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_FALSE(m.HayDeposito(dep[i]));
-    }
-
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_TRUE(m.AgDeposito(dep[i]));
-    }
-
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_TRUE(m.HayDeposito(dep[i]));
-    }
-
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_FALSE(m.AgDeposito(dep[i]));
-    }
-
-    set<Coord> conDepositos = m.Depositos();
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_TRUE(conDepositos.count(dep[i]));
-    }
+    Coord coord2 = Coord(coord1);
+    EXPECT_EQ(coord1.x(), 5);
+    EXPECT_EQ(coord1.y(), -10);
+    EXPECT_EQ(coord2.x(), 5);
+    EXPECT_EQ(coord2.y(), -10);
 }
 
-TEST(Mapa, depositos_y_paredes) {
-    Mapa m = Mapa();
-    vector<Coord> dep = {Coord(0, 0), Coord(34,46), Coord(-64,2),
-                         Coord(88,92), Coord(-3,-61), Coord(-58,54)};
-    vector<Coord> paredes = {Coord(0, 0), Coord(1,4), Coord(-7,2),
-                             Coord(8,9), Coord(-1,-7), Coord(-5,0)};
+TEST(Coord, Asignacion) {
+    Coord coord1 = Coord(5,-10);
+    EXPECT_EQ(coord1.x(), 5);
+    EXPECT_EQ(coord1.y(), -10);
 
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_FALSE(m.HayDeposito(dep[i]));
-    }
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_FALSE(m.HayPared(paredes[i]));
-    }
+    Coord coord2 = Coord(-20,5);
+    EXPECT_EQ(coord2.x(), -20);
+    EXPECT_EQ(coord2.y(), 5);
 
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_TRUE(m.AgPared(paredes[i]));
-    }
-    for (int i = 0; i < dep.size(); ++i) {
-        if(dep[i] == Coord(0,0)) {
-            EXPECT_FALSE(m.AgDeposito(dep[i]));
-        } else {
-            EXPECT_TRUE(m.AgDeposito(dep[i]));
-        }
-    }
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_TRUE(m.HayPared(paredes[i]));
-    }
+    coord1 = coord2;
+    EXPECT_EQ(coord1.x(), -20);
+    EXPECT_EQ(coord1.y(), 5);
+    EXPECT_EQ(coord2.x(), -20);
+    EXPECT_EQ(coord2.y(), 5);
+}
 
-    for (int i = 0; i < dep.size(); ++i) {
-        if(dep[i] == Coord(0,0)) {
-            EXPECT_FALSE(m.HayDeposito(dep[i]));
-        } else {
-            EXPECT_TRUE(m.HayDeposito(dep[i]));
-        }
-    }
+TEST(Coord, Mayor) {
+    Coord coord1 = Coord(0,0);
+    Coord coord2 = Coord(20,20);
 
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_FALSE(m.AgPared(paredes[i]));
-    }
+    EXPECT_FALSE(coord1 > coord2);
+    EXPECT_TRUE(coord2 > coord1);
+}
 
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_FALSE(m.AgDeposito(dep[i]));
-    }
+TEST(Coord, Menor) {
+    Coord coord1 = Coord(3,5);
+    Coord coord2 = Coord(4,-2);
 
-    Coord c = Coord(300, 500);
-    dep.push_back(c);
-    EXPECT_TRUE(m.AgDeposito(c));
-    EXPECT_FALSE(m.AgPared(c));
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_TRUE(m.HayPared(paredes[i]));
-    }
+    EXPECT_TRUE(coord1 < coord2);
+    EXPECT_FALSE(coord2 < coord1);
+}
 
-    set<Coord> conDepositos = m.Depositos();
-    for (int i = 0; i < dep.size(); ++i) {
-        if(dep[i] == Coord(0,0)) {
-            EXPECT_FALSE(conDepositos.count(dep[i]));
-        } else {
-            EXPECT_TRUE(conDepositos.count(dep[i]));
-        }
+TEST(Coord, Igual) {
+    Coord coord1 = Coord(7,1);
+    Coord coord2 = Coord(-3,46);
 
-    }
+    EXPECT_FALSE(coord1 == coord2);
+
+    coord1 = coord2;
+
+    EXPECT_TRUE(coord1 == coord2);
+}
+
+TEST(Coord, Distinto) {
+    Coord coord1 = Coord(0,-15);
+    Coord coord2 = Coord(-3,55);
+
+    EXPECT_TRUE(coord1 != coord2);
+
+    coord1 = coord2;
+
+    EXPECT_FALSE(coord1 != coord2);
 }

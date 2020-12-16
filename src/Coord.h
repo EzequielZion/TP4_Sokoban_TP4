@@ -8,7 +8,7 @@ public:
 
     Coord(int x, int y);
 
-    Coord(const Coordenada coord);
+    Coord(pair<int, int> coord);
 
     Coord(const Coord &coord);
 
@@ -27,7 +27,8 @@ public:
     bool operator==(const Coord &coord) const;
 
 private:
-    Coordenada _coord;
+    int _x;
+    int _y;
 };
 
 

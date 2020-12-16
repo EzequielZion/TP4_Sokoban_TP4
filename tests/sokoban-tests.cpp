@@ -1,128 +1,167 @@
 #include "gtest-1.8.1/gtest.h"
-#include "../src/Mapa.h"
+#include "../src/Sokoban.h"
 
+Nivel nivelParaTest1(){
+    aed2_Nivel n;
+    Nivel nivel = Nivel(n);
 
-TEST(Mapa, vacio) {
-    Mapa m = Mapa();
-    for (int i = 0; i < 1000; ++i) {
-        for (int j = 0; j < 1000; ++j) {
-            Coord c = Coord(i, j);
-            EXPECT_FALSE(m.HayDeposito(c));
-            EXPECT_FALSE(m.HayPared(c));
-        }
+    vector<Coord> depositos = {Coord(0, 9), Coord(1,4)};
+
+    for (int i = 0; i < depositos.size(); i++) {
+        n.depositos.insert(depositos[i].x(), depositos[i].y());
     }
-    EXPECT_TRUE(m.Depositos().empty());
+    vector<Coord> paredes = {Coord(2, 2), Coord(5,4), Coord(-7,3),
+                             Coord(4,9)};
+
+    for (int i = 0; i < paredes.size(); i++) {
+        n.paredes.insert(paredes[i].x(), paredes[i].y());
+    }
+    vector<Coord> cajas = {Coord(1,1),Coord(3,3)};
+
+    for (int i = 0; i < cajas.size(); i++) {
+        n.cajas.insert(cajas[i].x(), cajas[i].y());
+    }
+
+    n.cantidadBombas = 1;
+    n.posicionInicial = make_pair(0,0);
+
+
+    return nivel;
 }
 
-TEST(Mapa, paredes) {
-    Mapa m = Mapa();
-    vector<Coord> paredes = {Coord(0, 0), Coord(1,4), Coord(-7,2),
-                             Coord(8,9), Coord(-1,-7), Coord(-5,0)};
+Nivel nivelParaTest2(){
+    aed2_Nivel n;
+    Nivel nivel = Nivel(n);
 
+    vector<Coord> depositos = {Coord(0, 2)};
+
+    for (int i = 0; i < depositos.size(); i++) {
+        n.depositos.insert(depositos[i].x(), depositos[i].y());
+    }
+    vector<Coord> paredes = {Coord(2, 2), Coord(5,4), Coord(-7,3),
+                             Coord(4,9)};
+    for (int i = 0; i < paredes.size(); i++) {
+        n.paredes.insert(paredes[i].x(), paredes[i].y());
+    }
+    set<Coord> cajas = {Coord(0,1)};
+
+    n.cantidadBombas = 1;
+    n.posicionInicial = make_pair(0,0);
+
+
+    return nivel;
+}
+
+TEST(Sokoban, vacio) {
+    EXPECT_TRUE(true);
+}
+
+TEST(Sokoban,nuevo){
+    Nivel n = nivelParaTest1();
+    vector<Coord> paredes = {Coord(2, 2), Coord(5,4), Coord(-7,3),
+                             Coord(4,9)};
+    EXPECT_EQ(Sokoban(n).mapa().Depositos(),n.MapaN().Depositos());
     for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_FALSE(m.HayPared(paredes[i]));
+        EXPECT_FALSE(Sokoban(n).noHayParedNiCaja(paredes[i]));
     }
 
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_TRUE(m.AgPared(paredes[i]));
-    }
-
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_TRUE(m.HayPared(paredes[i]));
-    }
-
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_FALSE(m.AgPared(paredes[i]));
-    }
+    EXPECT_EQ(Sokoban(n).bombas(),n.BombasN());
+    EXPECT_EQ(Sokoban(n).persona(),n.PersonaN());
 
 }
 
-TEST(Mapa, depositos) {
-    Mapa m = Mapa();
-    vector<Coord> dep = {Coord(0, 0), Coord(34,46), Coord(-64,2),
-                         Coord(88,92), Coord(-3,-61), Coord(-58,54)};
+TEST(Sokoban, porCopiayAsignacion) {
+    Nivel n = nivelParaTest1();
+    vector<Coord> paredes = {Coord(2, 2), Coord(5,4), Coord(-7,3),
+                             Coord(4,9)};
 
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_FALSE(m.HayDeposito(dep[i]));
+    Sokoban s = Sokoban(n);
+    EXPECT_TRUE(s.persona() == n.PersonaN());
+    EXPECT_TRUE(s.bombas() == n.BombasN());
+    EXPECT_TRUE(s.mapa().Depositos() == n.MapaN().Depositos());
+    for (int i = 0; i < paredes.size(); ++i) {
+        EXPECT_TRUE(s.mapa().hayPared(paredes[i]));
+    }
+    for (Coord c:n.CajasN()){
+        EXPECT_TRUE(s.hayCaja(c));
     }
 
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_TRUE(m.AgDeposito(dep[i]));
+    Sokoban t(s);
+    EXPECT_TRUE(s.persona() == t.persona());
+    EXPECT_TRUE(s.bombas() == t.bombas());
+    EXPECT_TRUE(s.mapa().Depositos() == t.mapa().Depositos());
+    for (int i = 0; i < paredes.size(); ++i) {
+        EXPECT_EQ(s.mapa().hayPared(paredes[i]),t.mapa().hayPared(paredes[i]));
     }
-
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_TRUE(m.HayDeposito(dep[i]));
-    }
-
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_FALSE(m.AgDeposito(dep[i]));
-    }
-
-    set<Coord> conDepositos = m.Depositos();
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_TRUE(conDepositos.count(dep[i]));
+    for (Coord c:n.CajasN()){
+        EXPECT_EQ(s.hayCaja(c),t.hayCaja(c));
     }
 }
 
-TEST(Mapa, depositos_y_paredes) {
-    Mapa m = Mapa();
-    vector<Coord> dep = {Coord(0, 0), Coord(34,46), Coord(-64,2),
-                         Coord(88,92), Coord(-3,-61), Coord(-58,54)};
-    vector<Coord> paredes = {Coord(0, 0), Coord(1,4), Coord(-7,2),
-                             Coord(8,9), Coord(-1,-7), Coord(-5,0)};
+TEST(Sokoban,movimientos){
+    Nivel n = nivelParaTest1();
+    Sokoban s = Sokoban(n);
+    s.mover(Direccion(PuntoCardinal(Norte)));
+    EXPECT_EQ(s.persona(),Coord(n.PersonaN().x(),n.PersonaN().y() + 1));
+    for (Coord c:n.CajasN()){
+        EXPECT_TRUE(s.hayCaja(c));
+    }
+    s.mover(Direccion(PuntoCardinal(Este)));
+    EXPECT_EQ(s.persona(),Coord(n.PersonaN().x() + 1,n.PersonaN().y() + 1));
+    EXPECT_TRUE(s.hayCaja(Coord(2,1)));
+    s.mover(Direccion(PuntoCardinal(Sur)));
+    s.mover(Direccion(PuntoCardinal(Este)));
+    EXPECT_EQ(s.persona(),Coord(2,0));
+    EXPECT_FALSE(s.puedeMover(0));
+    s.mover(1);
+    s.mover(Direccion(PuntoCardinal(Norte)));
+    s.mover(Direccion(PuntoCardinal(Oeste)));
+    s.mover(Direccion(PuntoCardinal(Oeste)));
+    s.mover(Direccion(PuntoCardinal(Sur)));
+    s.mover(Direccion(PuntoCardinal(Oeste)));
+    EXPECT_EQ(s.persona(),Coord(0,0));
+    for (int i = 0; i < 8; ++i) {
+        s.mover(Direccion(PuntoCardinal(Norte)));
+    }
+    EXPECT_TRUE(s.hayCaja(Coord(0,9)));
+    EXPECT_TRUE(s.mapa().hayDeposito(Coord(0,9)));
 
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_FALSE(m.HayDeposito(dep[i]));
-    }
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_FALSE(m.HayPared(paredes[i]));
-    }
+}
 
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_TRUE(m.AgPared(paredes[i]));
-    }
-    for (int i = 0; i < dep.size(); ++i) {
-        if(dep[i] == Coord(0,0)) {
-            EXPECT_FALSE(m.AgDeposito(dep[i]));
-        } else {
-            EXPECT_TRUE(m.AgDeposito(dep[i]));
-        }
-    }
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_TRUE(m.HayPared(paredes[i]));
-    }
+TEST(Sokoban, ganoNoGano){
+    Nivel n = nivelParaTest2();
+    Sokoban s = Sokoban(n);
+    EXPECT_FALSE(s.gano());
+    s.mover(Direccion(PuntoCardinal(Norte)));
+    EXPECT_TRUE(s.gano());
 
-    for (int i = 0; i < dep.size(); ++i) {
-        if(dep[i] == Coord(0,0)) {
-            EXPECT_FALSE(m.HayDeposito(dep[i]));
-        } else {
-            EXPECT_TRUE(m.HayDeposito(dep[i]));
-        }
-    }
+}
 
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_FALSE(m.AgPared(paredes[i]));
-    }
+TEST(Sokoban , tirarBomba){
+    Nivel n = nivelParaTest1();
+    Sokoban s = Sokoban(n);
+    s.mover(Direccion(PuntoCardinal(Este)));
+    s.mover(Direccion(PuntoCardinal(Este)));
+    s.tirarBomba();
+    EXPECT_EQ(s.bombas() , 0);
+    EXPECT_FALSE(s.mapa().hayPared(Coord(2,2)));
+}
 
-    for (int i = 0; i < dep.size(); ++i) {
-        EXPECT_FALSE(m.AgDeposito(dep[i]));
-    }
-
-    Coord c = Coord(300, 500);
-    dep.push_back(c);
-    EXPECT_TRUE(m.AgDeposito(c));
-    EXPECT_FALSE(m.AgPared(c));
-    for (int i = 0; i < paredes.size(); ++i) {
-        EXPECT_TRUE(m.HayPared(paredes[i]));
-    }
-
-    set<Coord> conDepositos = m.Depositos();
-    for (int i = 0; i < dep.size(); ++i) {
-        if(dep[i] == Coord(0,0)) {
-            EXPECT_FALSE(conDepositos.count(dep[i]));
-        } else {
-            EXPECT_TRUE(conDepositos.count(dep[i]));
-        }
-
-    }
+TEST(Sokoban , deshacer) {
+    Nivel n = nivelParaTest1();
+    Sokoban s = Sokoban(n);
+    s.mover(Direccion(PuntoCardinal(Sur)));
+    EXPECT_TRUE(s.persona() == Coord(0, -1));
+    s.deshacer();
+    EXPECT_TRUE(s.persona() == Coord(0, 0));
+    s.tirarBomba();
+    EXPECT_TRUE(s.bombas() == 0);
+    s.deshacer();
+    EXPECT_TRUE(s.bombas() == 1);
+    EXPECT_TRUE(s.hayCaja(Coord(1, 1)));
+    s.mover(Direccion(PuntoCardinal(Norte)));
+    s.mover(Direccion(PuntoCardinal(Este)));
+    EXPECT_TRUE(s.hayCaja(Coord(2, 1)));
+    s.deshacer();
+    EXPECT_FALSE(s.hayCaja(Coord(2,1)));
 }

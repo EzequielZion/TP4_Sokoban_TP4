@@ -10,37 +10,97 @@ void swap(vector<int> &vec, int i, int j) {
     vec[j] = vec[aux];
 }
 
-int busquedaBinariaX(vector<pair<int, vector<int>>> vec, int l, int r,Coord c) {
-    if (r >= l) {
-        int mid = (l + r) / 2;
-
-        if (vec[mid].first == c.x()) {
-            return mid;
+int Mapa::busquedaBinariaXParedes(int l, int r,Coord c) const {
+    if (this->_paredes.size() == 1) {
+        if(this->_paredes[0].first == c.x()) {
+            return 0;
         }
+    } else {
+        if (r >= l) {
+            int mid = (l + r) / 2;
 
-        if (vec[mid].first > c.x()) {
-            return busquedaBinariaX(vec, l, mid, c);
+            if (this->_paredes[mid].first == c.x()) {
+                return mid;
+            }
+
+            if (this->_paredes[mid].first > c.x()) {
+                return busquedaBinariaXParedes(l, mid - 1, c);
+            }
+
+            return busquedaBinariaXParedes(mid + 1, r, c);
         }
-
-        return busquedaBinariaX(vec, mid + 1, r, c);
     }
 
     return -1;
 }
 
-int busquedaBinariaY(vector<int> vec, int l, int r, Coord c) {
-    if (r >= l) {
-        int mid = l + (r - l) / 2;
-
-        if (vec[mid] == c.y()) {
-            return mid;
+int Mapa::busquedaBinariaYParedes(int l, int r, Coord c, int x) const {
+    if (this->_paredes[x].second.size() == 1) {
+        if(this->_paredes[x].second[0] == c.y()) {
+            return 0;
         }
+    } else {
+        if (r >= l) {
+            int mid = l + (r - l) / 2;
 
-        if (vec[mid] > c.y()) {
-            return busquedaBinariaY(vec, l, mid, c);
+            if (this->_paredes[x].second[mid] == c.y()) {
+                return mid;
+            }
+
+            if (this->_paredes[x].second[mid] > c.y()) {
+                return busquedaBinariaYParedes(l, mid - 1, c, x);
+            }
+
+            return busquedaBinariaYParedes(mid + 1, r, c, x);
         }
+    }
 
-        return busquedaBinariaY(vec, mid + 1, r, c);
+    return -1;
+}
+
+int Mapa::busquedaBinariaXDepositos(int l, int r,Coord c) const {
+    if (this->_depositos.size() == 1) {
+        if(this->_depositos[0].first == c.x()) {
+            return 0;
+        }
+    } else {
+        if (r >= l) {
+            int mid = (l + r) / 2;
+
+            if (this->_depositos[mid].first == c.x()) {
+                return mid;
+            }
+
+            if (this->_depositos[mid].first > c.x()) {
+                return busquedaBinariaXDepositos(l, mid - 1, c);
+            }
+
+            return busquedaBinariaXDepositos(mid + 1, r, c);
+        }
+    }
+
+    return -1;
+}
+
+int Mapa::busquedaBinariaYDepositos(int l, int r, Coord c, int x) const {
+    if (this->_depositos[x].second.size() == 1) {
+        if(this->_depositos[x].second[0] == c.y()) {
+            return 0;
+        }
+    } else {
+        if (r >= l) {
+            int mid = l + (r - l) / 2;
+
+            if (this->_depositos[x].second[mid] == c.y()) {
+                return mid;
+            }
+
+            if (this->_depositos[x].second[mid] > c.y()) {
+                return busquedaBinariaYDepositos(l, mid - 1, c, x);
+            }
+
+            return busquedaBinariaYDepositos(mid + 1, r, c, x);
+        }
     }
 
     return -1;
@@ -151,9 +211,9 @@ bool Mapa::hayPared(const Coord &c) const {
     }
 
     if (!coincideBomba) {
-        int indiceX = busquedaBinariaX(this->_paredes, 0, this->_paredes.size(), c);
+        int indiceX = busquedaBinariaXParedes(0, this->_paredes.size(), c);
         if (indiceX != -1) {
-            int indiceY = busquedaBinariaY(this->_paredes[indiceX].second, 0, this->_paredes[indiceX].second.size(), c);
+            int indiceY = busquedaBinariaYParedes(0, this->_paredes[indiceX].second.size(), c, indiceX);
             if (indiceY != -1) {
                 res = true;
             }
@@ -164,10 +224,9 @@ bool Mapa::hayPared(const Coord &c) const {
 
 bool Mapa::hayDeposito(const Coord &c) const {
     bool res = false;
-    int indiceX = busquedaBinariaX(this->_depositos, 0, this->_depositos.size(), c);
-
+    int indiceX = busquedaBinariaXDepositos(0, this->_depositos.size(), c);
     if (indiceX != -1) {
-        int indiceY = busquedaBinariaY(this->_depositos[indiceX].second, 0, this->_depositos[indiceX].second.size(), c);
+        int indiceY = busquedaBinariaYDepositos(0, this->_depositos[indiceX].second.size(), c, indiceX);
         if (indiceY != -1) {
             res = true;
         }
