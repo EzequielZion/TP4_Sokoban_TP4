@@ -38,7 +38,7 @@ bool aed2_Juego::mover(PuntoCardinal pc) {
     bool res = false;
     this->_sokoActual.mover(Direccion(pc));
     if (this->_sokoActual.gano()) {
-        if (this->_nivelesPendientes.empty()) {
+        if (!this->_nivelesPendientes.empty()) {
             this->_sokoActual = Sokoban(Nivel(this->_nivelesPendientes[0]));
             this->_nivelesPendientes.erase(this->_nivelesPendientes.begin());
         }
@@ -48,7 +48,7 @@ bool aed2_Juego::mover(PuntoCardinal pc) {
 }
 
 void aed2_Juego::tirarBomba() {
-    this->_sokoActual.tirarBomba(this->_sokoActual.persona());
+    this->_sokoActual.tirarBomba();
 }
 
 void aed2_Juego::deshacer() {

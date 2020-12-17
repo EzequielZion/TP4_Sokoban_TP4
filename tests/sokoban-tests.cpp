@@ -3,51 +3,71 @@
 
 Nivel nivelParaTest1(){
     aed2_Nivel n;
-    Nivel nivel = Nivel(n);
 
-    vector<Coord> depositos = {Coord(0, 9), Coord(1,4)};
+    vector<Coord> depositos;
+    depositos.push_back(Coord(0, 9));
+    depositos.push_back(Coord(1,4));
 
-    for (int i = 0; i < depositos.size(); i++) {
-        n.depositos.insert(depositos[i].x(), depositos[i].y());
+    for (Coord deposito : depositos) {
+        n.depositos.insert(make_pair(deposito.x(), deposito.y()));
     }
-    vector<Coord> paredes = {Coord(2, 2), Coord(5,4), Coord(-7,3),
-                             Coord(4,9)};
 
-    for (int i = 0; i < paredes.size(); i++) {
-        n.paredes.insert(paredes[i].x(), paredes[i].y());
+    vector<Coord> paredes;
+    paredes.push_back(Coord(2, 2));
+    paredes.push_back(Coord(5,4));
+    paredes.push_back(Coord(-7,3));
+    paredes.push_back(Coord(4,9));
+
+    for (Coord pared : paredes) {
+        n.paredes.insert(make_pair(pared.x(), pared.y()));
     }
-    vector<Coord> cajas = {Coord(1,1),Coord(3,3)};
+    vector<Coord> cajas;
+    cajas.push_back(Coord(1,1));
+    cajas.push_back(Coord(3, 3));
 
-    for (int i = 0; i < cajas.size(); i++) {
-        n.cajas.insert(cajas[i].x(), cajas[i].y());
+    for (Coord caja : cajas) {
+        n.cajas.insert(make_pair(caja.x(), caja.y()));
     }
 
     n.cantidadBombas = 1;
     n.posicionInicial = make_pair(0,0);
 
+    Nivel nivel = Nivel(n);
 
     return nivel;
 }
 
 Nivel nivelParaTest2(){
     aed2_Nivel n;
-    Nivel nivel = Nivel(n);
 
-    vector<Coord> depositos = {Coord(0, 2)};
+    vector<Coord> depositos;
+    depositos.push_back(Coord(0, 2));
 
-    for (int i = 0; i < depositos.size(); i++) {
-        n.depositos.insert(depositos[i].x(), depositos[i].y());
+    for (Coord deposito : depositos) {
+        n.depositos.insert(make_pair(deposito.x(), deposito.y()));
     }
-    vector<Coord> paredes = {Coord(2, 2), Coord(5,4), Coord(-7,3),
-                             Coord(4,9)};
-    for (int i = 0; i < paredes.size(); i++) {
-        n.paredes.insert(paredes[i].x(), paredes[i].y());
+
+    vector<Coord> paredes;
+    paredes.push_back(Coord(4,9));
+    paredes.push_back(Coord(2, 2));
+    paredes.push_back(Coord(5,4));
+    paredes.push_back(Coord(-7,3));
+
+    for (Coord pared : paredes) {
+        n.paredes.insert(make_pair(pared.x(), pared.y()));
     }
-    set<Coord> cajas = {Coord(0,1)};
+
+    vector<Coord> cajas;
+    cajas.push_back(Coord(0,1));
+
+    for (Coord caja : cajas) {
+        n.cajas.insert(make_pair(caja.x(), caja.y()));
+    }
 
     n.cantidadBombas = 1;
     n.posicionInicial = make_pair(0,0);
 
+    Nivel nivel = Nivel(n);
 
     return nivel;
 }

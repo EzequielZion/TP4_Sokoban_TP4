@@ -4,7 +4,7 @@
 
 TEST(Mapa, NoHayNadaEnMapaVacio) {
     Mapa m = Mapa();
-    pair<int, int> c = make_pair(53, -6);
+    Coord c = Coord(69, 420);
     EXPECT_FALSE(m.hayDeposito(c));
     EXPECT_FALSE(m.hayPared(c));
     EXPECT_TRUE(m.Depositos().empty());
@@ -14,7 +14,10 @@ TEST(Mapa, NoHayNadaEnMapaVacio) {
 
 TEST(Mapa, NoHayParedLuegoAgregoEntoncesSiHay) {
     Mapa m = Mapa();
-    vector<Coord> paredes = {Coord(0, 0), Coord(3, 7), Coord(-9, 2)};
+    vector<Coord> paredes;
+    paredes.push_back(Coord(0, 0));
+    paredes.push_back(Coord(3, 7));
+    paredes.push_back(Coord(-9, 2));
 
     for (Coord pared : paredes) {
         EXPECT_FALSE(m.hayPared(pared));

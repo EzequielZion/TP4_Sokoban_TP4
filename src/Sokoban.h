@@ -17,7 +17,7 @@ public:
     bool hayCaja(const Coord &c) const;
     bool noHayParedNiCaja(const Coord &c) const;
     bool hayCajas(const set<Coord>& cajas) const;
-    void tirarBomba(const Coord& c);
+    void tirarBomba();
     bool puedeMover(const Direccion &dir) const;
     bool gano() const;
 

@@ -27,12 +27,14 @@ public:
 
     void tirarBomba(Coord c);
 
-    list<Coord> bombasTiradas() const;
+    vector<Coord> bombasTiradas() const;
+
+    void eliminarBomba();
 
 private:
     vector<pair<int,  vector<int>>> _paredes;
     vector<pair<int,  vector<int>>> _depositos;
-    list<Coord> _bombasTiradas;
+    vector<Coord> _bombasTiradas;
     int busquedaBinariaXParedes(int l, int r,Coord c) const;
     int busquedaBinariaYParedes(int l, int r,Coord c, int x) const;
     int busquedaBinariaXDepositos(int l, int r,Coord c) const;

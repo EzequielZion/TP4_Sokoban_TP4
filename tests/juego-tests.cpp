@@ -42,7 +42,7 @@ protected:
     }
 };
 
-/*TEST_F(JuegoTest, empezar_juego) {
+TEST_F(JuegoTest, empezar_juego) {
     aed2_Juego j({n1});
 
     EXPECT_TRUE(j.hayPared(pos1));
@@ -230,8 +230,7 @@ TEST_F(JuegoTest, deshacer_empujar_caja_NE) {
 
     EXPECT_EQ(j.posicionActual(), posO);
     EXPECT_TRUE(j.hayCaja(pos9));
-}*/
-
+}
 TEST_F(JuegoTest, deshacer_tirar_bomba) {
     aed2_Juego j({n1});
     j.mover(Norte);
@@ -257,6 +256,13 @@ TEST_F(JuegoTest, ganar_nivel) {
     j.mover(Este);
     j.mover(Oeste);
     j.mover(Sur);
+
+    //
+    // -D---
+    // PC-P-
+    // --I--
+    // -P-CD
+    // ---CD
 
     EXPECT_TRUE(j.mover(Este));
     EXPECT_TRUE(j.hayPared(pos1));

@@ -104,7 +104,8 @@ void Sokoban::deshacer() {
             this->_cajas.erase(get<2>(get<0>(this->_accion.top())));
             this->_cajas.insert(get<1>(get<0>(this->_accion.top())));
         } else if (get<0>(get<1>(this->_accion.top()))) {
-            this->_mapa.bombasTiradas().pop_back();
+            this->_mapa.eliminarBomba();
+            this->_bombas++;
         } else if (get<0>(get<2>(this->_accion.top()))) {
             Coord per = Coord(get<1>(get<2>(this->_accion.top())));
             this->_persona = per;
@@ -113,20 +114,16 @@ void Sokoban::deshacer() {
     }
 }
 
-void Sokoban::tirarBomba(const Coord& c) {
+void Sokoban::tirarBomba() {
     if(this->_bombas > 0) {
-        this->_mapa.tirarBomba(c);
+        this->_mapa.tirarBomba(this->_persona);
         this->_bombas--;
         this->_accion.push(make_tuple(make_tuple(false, Coord(), Coord()), make_tuple(true), make_tuple(false, this->_persona)));
     }
 }
 
 bool Sokoban::gano() const {
-    bool res = false;
-    if (this->_depositosSinCaja == 0) {
-        res = true;
-    }
-    return res;
+    return this->_depositosSinCaja == 0;
 }
 
 bool Sokoban::hayCajas(const set<Coord>& cajas) const {
