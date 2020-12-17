@@ -68,15 +68,16 @@ bool Sokoban::puedeMover(const Direccion &dir) const {
 void Sokoban::mover(const Direccion &dir) {
     Coord proxCord = dir.proximaCoord(this->persona());
     Coord proxProxCord = dir.proximaCoord(proxCord);
+    Coord posPersona = this->_persona;
 
     if (puedeMover(dir)) {
         if (hayCaja(proxCord)) {
-            if (mapa().hayDeposito(proxCord)) {
+            if (this->_mapa.hayDeposito(proxCord)) {
                 this->_depositosSinCaja++;
                 this->_cajas.erase(proxCord);
                 this->_cajas.insert(proxProxCord);
                 this->_persona = proxCord;
-            } else if (mapa().hayDeposito(proxProxCord)) {
+            } else if (this->_mapa.hayDeposito(proxProxCord)) {
                 this->_depositosSinCaja--;
                 this->_cajas.erase(proxCord);
                 this->_cajas.insert(proxProxCord);
@@ -86,16 +87,11 @@ void Sokoban::mover(const Direccion &dir) {
                 this->_cajas.insert(proxProxCord);
                 this->_persona = proxCord;
             }
-            Coord* itCaja;
-            for(Coord c : this->_cajas) {
-                if (c == proxProxCord) {
-                    itCaja = &c;
-                }
-            }
-            this->_accion.push(make_tuple(make_tuple(true, Coord(proxCord), itCaja), make_tuple(false), make_tuple(true, proxCord)));
+
+            this->_accion.push(make_tuple(make_tuple(true, proxCord, proxProxCord), make_tuple(false), make_tuple(true, posPersona)));
         } else {
+            this->_accion.push(make_tuple(make_tuple(false, Coord(), Coord()), make_tuple(false), make_tuple(true, posPersona)));
             this->_persona = proxCord;
-            this->_accion.push(make_tuple(make_tuple(false, Coord(0,0), nullptr), make_tuple(false), make_tuple(true, proxCord)));
         }
     }
 }
@@ -103,12 +99,15 @@ void Sokoban::mover(const Direccion &dir) {
 void Sokoban::deshacer() {
     if (!this->_accion.empty()) {
         if (get<0>(get<0>(this->_accion.top()))) {
-            this->_persona = get<1>(get<2>(this->_accion.top()));
-            get<2>(get<0>(this->_accion.top())) = &get<1>(get<0>(this->_accion.top()));
+            Coord per = Coord(get<1>(get<2>(this->_accion.top())));
+            this->_persona = per;
+            this->_cajas.erase(get<2>(get<0>(this->_accion.top())));
+            this->_cajas.insert(get<1>(get<0>(this->_accion.top())));
         } else if (get<0>(get<1>(this->_accion.top()))) {
             this->_mapa.bombasTiradas().pop_back();
         } else if (get<0>(get<2>(this->_accion.top()))) {
-            this->_persona = get<1>(get<2>(this->_accion.top()));
+            Coord per = Coord(get<1>(get<2>(this->_accion.top())));
+            this->_persona = per;
         }
         this->_accion.pop();
     }
@@ -118,7 +117,7 @@ void Sokoban::tirarBomba(const Coord& c) {
     if(this->_bombas > 0) {
         this->_mapa.tirarBomba(c);
         this->_bombas--;
-        this->_accion.push(make_tuple(make_tuple(false, Coord(0, 0), nullptr), make_tuple(true), make_tuple(false, this->_persona)));
+        this->_accion.push(make_tuple(make_tuple(false, Coord(), Coord()), make_tuple(true), make_tuple(false, this->_persona)));
     }
 }
 

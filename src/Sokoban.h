@@ -27,7 +27,7 @@ private:
     Nat _bombas;
     Coord _persona;
     Nat _depositosSinCaja;
-    stack< tuple< tuple<bool, Coord, Coord*>, tuple<bool>, tuple<bool, Coord> > > _accion;
+    stack< tuple< tuple<bool, Coord, Coord>, tuple<bool>, tuple<bool, Coord> > > _accion;
 };
 
 #endif //TP4_SOKOBAN_SOKOBAN_H

@@ -37,6 +37,7 @@ protected:
         // --I--
         // -P-CD
         // ---CD
+
         n2 = {posiciones123, posiciones0456, posiciones5789, pos0, 0};
     }
 };
@@ -110,7 +111,7 @@ TEST_F(JuegoTest, mover_al_oeste) {
 
     EXPECT_FALSE(j.mover(Oeste));
     EXPECT_EQ(j.posicionActual(), posO);
-}*/
+}
 
 TEST_F(JuegoTest, no_se_puede_mover_NS) {
     aed2_Juego j({n1});
@@ -229,7 +230,7 @@ TEST_F(JuegoTest, deshacer_empujar_caja_NE) {
 
     EXPECT_EQ(j.posicionActual(), posO);
     EXPECT_TRUE(j.hayCaja(pos9));
-}
+}*/
 
 TEST_F(JuegoTest, deshacer_tirar_bomba) {
     aed2_Juego j({n1});
