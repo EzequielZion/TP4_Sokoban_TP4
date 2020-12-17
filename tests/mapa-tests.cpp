@@ -52,32 +52,9 @@ TEST(Mapa, NoHayDepositosNiParedesLuegoAgregoEntoncesSiHay) {
     }
 
     for (Coord deposito : depositos) {
-        EXPECT_FALSE(m.agDeposito(deposito));
         EXPECT_FALSE(m.hayDeposito(deposito));
-    }
-}
-
-TEST(Mapa, AgregoUnDepositoEntoncesNoPuedoAgregarUnaPared) {
-    Mapa m = Mapa();
-    Coord c = Coord(15, -15);
-    vector<Coord> depositos =  vector<Coord>(0);
-    depositos.push_back(c);
-    EXPECT_TRUE(m.agDeposito(c));
-    EXPECT_FALSE(m.agPared(c));
-
-    for (Coord deposito : depositos) {
+        EXPECT_TRUE(m.agDeposito(deposito));
         EXPECT_TRUE(m.hayDeposito(deposito));
-    }
-}
-TEST(Mapa, AgregoUnaParedEntoncesNoPuedoAgregarUnDeposito) {
-    Mapa m = Mapa();
-    Coord c = Coord(-15, 15);
-    vector<Coord> paredes = {Coord(0, 0), Coord(1, 1), Coord(-7, -8)};
-    paredes.push_back(c);
-    EXPECT_TRUE(m.agPared(c));
-    EXPECT_FALSE(m.agDeposito(c));
-
-    for (Coord pared : paredes) {
-        EXPECT_TRUE(m.hayPared(pared));
+        EXPECT_FALSE(m.agDeposito(deposito));
     }
 }
